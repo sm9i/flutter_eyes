@@ -1,8 +1,14 @@
+import 'dart:async';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_eyes/common/common_fun.dart';
+import 'package:flutter_eyes/res/StringRes.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
+
+import 'intercept_vertical_widget.dart';
 
 ///主页面视频
 class SplashVideoPage extends StatefulWidget {
@@ -13,6 +19,9 @@ class SplashVideoPage extends StatefulWidget {
 class _SplashVideoPageState extends State<SplashVideoPage>
     with WidgetsBindingObserver {
   VideoPlayerController _videoPlayerController;
+  StreamController<int> bottomSloganController = StreamController();
+
+  int sloganCurrentIndex = 0;
 
   @override
   void initState() {
@@ -28,35 +37,126 @@ class _SplashVideoPageState extends State<SplashVideoPage>
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: <Widget>[
-          VideoPlayer(_videoPlayerController),
-          Positioned(
-            top: setHeight(200),
-            left: 0,
-            right: 0,
-            child: Glide.loadAssetIcon(
-              'ic_account_login_header.png',
-              height: setHeight(180),
-            ),
-          ),
-          Positioned(
-            bottom: ScreenUtil.bottomBarHeight + setHeight(20),
-            left: 0,
-            right: 0,
-            child: Glide.loadAssetIcon(
-              'ic_top_arrow_double.png',
-              height: setHeight(80),
-            ),
-          ),
-        ],
+      child: InterceptVerticalWidget(
+        child: Stack(
+          children: <Widget>[
+            VideoPlayer(_videoPlayerController),
+            centerLogoWidget(),
+            bottomFooterWidget(),
+            Positioned(
+              bottom: setHeight(200),
+              left: 0,
+              right: 0,
+              child: StreamBuilder<int>(
+                stream: bottomSloganController.stream,
+                initialData: sloganCurrentIndex,
+                builder: (_, snp) {
+                  return Column(
+                    children: <Widget>[
+                      TyperAnimatedTextKit(
+                        key: Key('zh${snp.data}'),
+                        text: [StringRes.sloganListZh[snp.data]],
+                        textStyle: TextStyle(
+                          fontFamily: 'Bold',
+                          color: Colors.white,
+                          fontSize: setSp(35),
+                        ),
+                        textAlign: TextAlign.center,
+                        isRepeatingAnimation: false,
+                        speed: Duration(milliseconds: 50),
+                      ),
+                      TyperAnimatedTextKit(
+                        key: Key('en${snp.data}'),
+                        text: [StringRes.sloganListEn[snp.data]],
+                        textStyle: TextStyle(
+                          fontFamily: 'Lobster',
+                          color: Colors.white,
+                          fontSize: setSp(28),
+                        ),
+                        textAlign: TextAlign.center,
+                        isRepeatingAnimation: false,
+                        speed: Duration(milliseconds: 10),
+                      ),
+                      SizedBox(
+                        height: setHeight(20),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: setWidth(10),
+                            height: setWidth(10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _indicatorColor(snp.data, 0),
+                            ),
+                          ),
+                          SizedBox(width: setWidth(10)),
+                          Container(
+                            width: setWidth(10),
+                            height: setWidth(10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _indicatorColor(snp.data, 1),
+                            ),
+                          ),
+                          SizedBox(width: setWidth(10)),
+                          Container(
+                            width: setWidth(10),
+                            height: setWidth(10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _indicatorColor(snp.data, 2),
+                            ),
+                          ),
+                          SizedBox(width: setWidth(10)),
+                          Container(
+                            width: setWidth(10),
+                            height: setWidth(10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _indicatorColor(snp.data, 3),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+        verticalCallBack: () {
+          print("2");
+        },
+        horizontalCallBack: (axis) {
+          if (axis == AxisDirection.left) {
+            if (sloganCurrentIndex == 0) {
+              return;
+            }
+            sloganCurrentIndex--;
+            bottomSloganController.add(sloganCurrentIndex);
+          } else {
+            if (sloganCurrentIndex == StringRes.sloganListEn.length - 1) {
+              print("跳转");
+              return;
+            }
+            sloganCurrentIndex++;
+            bottomSloganController.add(sloganCurrentIndex);
+          }
+        },
       ),
     );
   }
 
+  Color _indicatorColor(int currentIndex, int index) =>
+      currentIndex == index ? Colors.white : Colors.white70;
+
   @override
   void dispose() {
     _videoPlayerController?.dispose();
+    bottomSloganController.close();
     super.dispose();
   }
 
@@ -74,5 +174,29 @@ class _SplashVideoPageState extends State<SplashVideoPage>
     }
 
     super.didChangeAppLifecycleState(state);
+  }
+
+  Positioned bottomFooterWidget() {
+    return Positioned(
+      bottom: ScreenUtil.bottomBarHeight + setHeight(20),
+      left: 0,
+      right: 0,
+      child: Glide.loadAssetIcon(
+        'ic_top_arrow_double.png',
+        height: setHeight(80),
+      ),
+    );
+  }
+
+  Positioned centerLogoWidget() {
+    return Positioned(
+      top: setHeight(200),
+      left: 0,
+      right: 0,
+      child: Glide.loadAssetIcon(
+        'ic_account_login_header.png',
+        height: setHeight(180),
+      ),
+    );
   }
 }
