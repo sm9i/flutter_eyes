@@ -1,13 +1,15 @@
 import 'dart:async';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_eyes/common/common_fun.dart';
 import 'package:flutter_eyes/res/StringRes.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_eyes/common/helper.dart';
 
+import '../main_page.dart';
 import 'intercept_vertical_widget.dart';
 
 ///主页面视频
@@ -127,9 +129,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             )
           ],
         ),
-        verticalCallBack: () {
-          print("2");
-        },
+        verticalCallBack: () => _goMainPage(),
         horizontalCallBack: (axis) {
           if (axis == AxisDirection.left) {
             if (sloganCurrentIndex == 0) {
@@ -139,7 +139,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             bottomSloganController.add(sloganCurrentIndex);
           } else {
             if (sloganCurrentIndex == StringRes.sloganListEn.length - 1) {
-              print("跳转");
+              _goMainPage();
               return;
             }
             sloganCurrentIndex++;
@@ -148,6 +148,11 @@ class _SplashVideoPageState extends State<SplashVideoPage>
         },
       ),
     );
+  }
+
+  _goMainPage() {
+    print("go main ");
+    goPageAndKillSelf(MainPage());
   }
 
   Color _indicatorColor(int currentIndex, int index) =>
