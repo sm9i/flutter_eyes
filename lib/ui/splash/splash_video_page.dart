@@ -39,6 +39,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
   @override
   Widget build(BuildContext context) {
     return Material(
+//      color: Colors.blueGrey,
       child: InterceptVerticalWidget(
         child: Stack(
           children: <Widget>[
@@ -170,11 +171,11 @@ class _SplashVideoPageState extends State<SplashVideoPage>
     switch (state) {
       case AppLifecycleState.resumed:
       case AppLifecycleState.inactive:
-        _videoPlayerController?.play();
+//        _videoPlayerController?.play();
         break;
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-        _videoPlayerController?.pause();
+//        _videoPlayerController?.pause();
         break;
     }
 
