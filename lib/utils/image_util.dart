@@ -17,12 +17,12 @@ class Glide {
     );
   }
 
-  static assetsIconPath(String name) {
+  static String assetsIconPath(String name) {
     assert(name != null && name != '');
     return _assetIcons + name;
   }
 
-  static assetsImagePath(String name) {
+  static String assetsImagePath(String name) {
     assert(name != null && name != '');
     return _assetImages + name;
   }

@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 ///拦截左右滑动 和向下滑动
 class InterceptVerticalWidget extends StatefulWidget {
   final Widget child;
-  final int indicator;
   final Function() verticalCallBack;
   final Function(AxisDirection axis) horizontalCallBack;
 
   const InterceptVerticalWidget({
     Key key,
     @required this.child,
-    this.indicator,
     this.verticalCallBack,
     this.horizontalCallBack,
   }) : super(key: key);
