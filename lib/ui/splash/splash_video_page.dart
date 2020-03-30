@@ -2,8 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_eyes/common/common_fun.dart';
-import 'package:flutter_eyes/res/StringRes.dart';
+import 'package:flutter_eyes/constants/configuration.dart';
+import 'package:flutter_eyes/constants/constants.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
+import 'package:flutter_eyes/utils/screens.dart';
+import 'package:flutter_eyes/utils/sp_util.dart';
+import 'package:flutter_eyes/utils/utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_eyes/common/helper.dart';
@@ -26,6 +30,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
 
   @override
   void initState() {
+    SpUtil.putBool(Config.isFirstOpenBool, true);
     _videoPlayerController =
         VideoPlayerController.asset('assets/videos/landing.mp4');
     _videoPlayerController.initialize().then((_) {
@@ -46,7 +51,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             centerLogoWidget(),
             bottomFooterWidget(),
             Positioned(
-              bottom: setHeight(200),
+              bottom: ScreenUtil.bottomBarHeight + suSetHeight(100),
               left: 0,
               right: 0,
               child: StreamBuilder<int>(
@@ -57,11 +62,11 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                     children: <Widget>[
                       TyperAnimatedTextKit(
                         key: Key('zh${snp.data}'),
-                        text: [StringRes.sloganListZh[snp.data]],
+                        text: [Constants.sloganListZh[snp.data]],
                         textStyle: TextStyle(
-                          fontFamily: 'Bold',
+                          fontFamily: FontType.bold,
                           color: Colors.white,
-                          fontSize: setSp(35),
+                          fontSize: suSetSp(23),
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
@@ -69,52 +74,52 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                       ),
                       TyperAnimatedTextKit(
                         key: Key('en${snp.data}'),
-                        text: [StringRes.sloganListEn[snp.data]],
+                        text: [Constants.sloganListEn[snp.data]],
                         textStyle: TextStyle(
-                          fontFamily: 'Lobster',
+                          fontFamily: FontType.lobster,
                           color: Colors.white,
-                          fontSize: setSp(28),
+                          fontSize: suSetSp(24),
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
                         speed: Duration(milliseconds: 10),
                       ),
                       SizedBox(
-                        height: setHeight(20),
+                        height: suSetHeight(15),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            width: setWidth(10),
-                            height: setWidth(10),
+                            width: suSetWidth(5),
+                            height: suSetWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 0),
                             ),
                           ),
-                          SizedBox(width: setWidth(10)),
+                          SizedBox(width: suSetWidth(10)),
                           Container(
-                            width: setWidth(10),
-                            height: setWidth(10),
+                            width: suSetWidth(5),
+                            height: suSetWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 1),
                             ),
                           ),
-                          SizedBox(width: setWidth(10)),
+                          SizedBox(width: suSetWidth(10)),
                           Container(
-                            width: setWidth(10),
-                            height: setWidth(10),
+                            width: suSetWidth(5),
+                            height: suSetWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 2),
                             ),
                           ),
-                          SizedBox(width: setWidth(10)),
+                          SizedBox(width: suSetWidth(10)),
                           Container(
-                            width: setWidth(10),
-                            height: setWidth(10),
+                            width: suSetWidth(5),
+                            height: suSetWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 3),
@@ -138,7 +143,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             sloganCurrentIndex--;
             bottomSloganController.add(sloganCurrentIndex);
           } else {
-            if (sloganCurrentIndex == StringRes.sloganListEn.length - 1) {
+            if (sloganCurrentIndex == Constants.sloganListEn.length - 1) {
               _goMainPage();
               return;
             }
@@ -182,24 +187,24 @@ class _SplashVideoPageState extends State<SplashVideoPage>
 
   Positioned bottomFooterWidget() {
     return Positioned(
-      bottom: ScreenUtil.bottomBarHeight + setHeight(20),
+      bottom: ScreenUtil.bottomBarHeight + suSetHeight(20),
       left: 0,
       right: 0,
       child: Glide.loadAssetIcon(
         'ic_top_arrow_double.png',
-        height: setHeight(80),
+        height: suSetHeight(30),
       ),
     );
   }
 
   Positioned centerLogoWidget() {
     return Positioned(
-      top: setHeight(200),
+      top: suSetHeight(250),
       left: 0,
       right: 0,
       child: Glide.loadAssetIcon(
         'ic_account_login_header.png',
-        height: setHeight(180),
+        height: suSetHeight(100),
       ),
     );
   }

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
-        ScreenUtil.init(context, width: 750, height: 1334);
+        ScreenUtil.init(context, allowFontScaling: false);
         return child;
       },
       home: SplashPage(),
