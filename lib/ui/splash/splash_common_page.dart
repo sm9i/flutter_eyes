@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_eyes/constants/configuration.dart';
 import 'package:flutter_eyes/constants/constants.dart';
+import 'package:flutter_eyes/constants/font_type.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_eyes/common/helper.dart';
 import 'package:flutter_eyes/utils/screens.dart';
@@ -79,7 +80,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   void moveAnim() {
     _moveAnimationController =
         AnimationController(vsync: this, duration: animDuration);
-    _moveAnimation = Tween(begin: suSetHeight(200), end: suSetHeight(300))
+    _moveAnimation = Tween(begin: setHeight(200), end: setHeight(300))
         .animate(_moveAnimationController)
           ..addListener(() {
             if (_moveAnimationController.lastElapsedDuration != null) {
@@ -134,7 +135,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
                   Constants.forToday,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: suSetSp(24),
+                    fontSize: setSp(34),
                     color: Color.lerp(Colors.transparent, Color(0xff444444),
                         _textAnimation.value),
                     fontFamily: FontType.lobster,
@@ -147,16 +148,16 @@ class _SplashCommonPageState extends State<SplashCommonPage>
             Positioned(
               left: 0,
               right: 0,
-              bottom: suSetHeight(40),
+              bottom: setHeight(40),
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: suSetSp(16),
+                  fontSize: setSp(16),
                   color: Color(0xffB7B9B8),
                 ),
                 child: Column(
                   children: <Widget>[
                     Text('-  2020/03/31  -'),
-                    SizedBox(height: suSetHeight(10)),
+                    SizedBox(height: setHeight(10)),
                     Text(
                       Constants.todayChose,
                       style: TextStyle(
@@ -176,23 +177,23 @@ class _SplashCommonPageState extends State<SplashCommonPage>
     return Positioned(
       left: 0,
       right: 0,
-      bottom: suSetHeight(40),
+      bottom: setHeight(80),
       child: DefaultTextStyle(
         style: TextStyle(
           color: Color(0xffB7B9B8),
-          fontSize: suSetSp(16),
+          fontSize: setSp(30),
         ),
         textAlign: TextAlign.center,
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: suSetHeight(200)),
+              padding: EdgeInsets.only(bottom: setHeight(200)),
               child: Text(
                 Constants.openEyesChinese,
                 style: TextStyle(
                   color: Colors.white,
                   letterSpacing: 0.3,
-                  fontSize: suSetSp(28),
+                  fontSize: setSp(36),
                 ),
               ),
             ),
@@ -201,7 +202,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
               style: TextStyle(fontFamily: FontType.lobster),
             ),
             SizedBox(
-              height: suSetHeight(10),
+              height: setHeight(10),
             ),
             Text(
               Constants.adMessageChinese,
@@ -240,7 +241,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: suSetWidth(150),
+              width: setWidth(150),
               child: Stack(
                 children: <Widget>[
                   Container(
@@ -258,7 +259,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
             Text(
               Constants.openEyesEnglish,
               style: TextStyle(
-                fontSize: suSetSp(24),
+                fontSize: setSp(36),
                 color: textColor,
                 fontFamily: FontType.lobster,
               ),

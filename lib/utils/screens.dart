@@ -35,16 +35,14 @@ class Screens {
 }
 
 /// Screen capability method.
-double suSetSp(double size, {double scale}) => _sizeCapable(
-      (ScreenUtil().setSp(size) * 2).toDouble(),
-      scale: scale,
-    );
+double setSp(double size, {double scale}) =>
+    _sizeCapable(ScreenUtil().setSp(size).toDouble(), scale: scale);
 
-double suSetWidth(double size, {double scale}) =>
-    _sizeCapable((ScreenUtil().setWidth(size) * 2).toDouble(), scale: scale);
+double setWidth(double size, {double scale}) =>
+    _sizeCapable(ScreenUtil().setWidth(size).toDouble(), scale: scale);
 
-double suSetHeight(double size, {double scale}) =>
-    _sizeCapable((ScreenUtil().setHeight(size) * 2).toDouble(), scale: scale);
+double setHeight(double size, {double scale}) =>
+    _sizeCapable(ScreenUtil().setHeight(size).toDouble(), scale: scale);
 
 double _sizeCapable(num size, {double scale}) =>
     (size * (scale ?? 1.0)).toDouble();

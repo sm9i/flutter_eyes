@@ -21,4 +21,7 @@ class Constants {
     'Enjoy your daily eyepetit,even without connectivity',
     'Sign in to comment &amp;collect videos,to subscript also',
   ];
+
+  static final messageNetError = '网络错误\n点击屏幕重试';
+  static final messageEmpty = '没有数据\n点击屏幕重试';
 }

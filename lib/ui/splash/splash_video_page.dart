@@ -4,7 +4,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_eyes/common/common_fun.dart';
 import 'package:flutter_eyes/constants/configuration.dart';
 import 'package:flutter_eyes/constants/constants.dart';
+import 'package:flutter_eyes/constants/font_type.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
+import 'package:flutter_eyes/utils/net/net_util.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/sp_util.dart';
 import 'package:flutter_eyes/utils/utils.dart';
@@ -39,11 +41,17 @@ class _SplashVideoPageState extends State<SplashVideoPage>
     });
     super.initState();
   }
+  @override
+  void dispose() {
+    _videoPlayerController?.dispose();
+    bottomSloganController.close();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Material(
-//      color: Colors.blueGrey,
       child: InterceptVerticalWidget(
         child: Stack(
           children: <Widget>[
@@ -51,7 +59,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             centerLogoWidget(),
             bottomFooterWidget(),
             Positioned(
-              bottom: ScreenUtil.bottomBarHeight + suSetHeight(100),
+              bottom: ScreenUtil.bottomBarHeight + setHeight(100),
               left: 0,
               right: 0,
               child: StreamBuilder<int>(
@@ -66,7 +74,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                         textStyle: TextStyle(
                           fontFamily: FontType.bold,
                           color: Colors.white,
-                          fontSize: suSetSp(23),
+                          fontSize: setSp(23),
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
@@ -78,48 +86,48 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                         textStyle: TextStyle(
                           fontFamily: FontType.lobster,
                           color: Colors.white,
-                          fontSize: suSetSp(24),
+                          fontSize: setSp(24),
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
                         speed: Duration(milliseconds: 10),
                       ),
                       SizedBox(
-                        height: suSetHeight(15),
+                        height: setHeight(15),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            width: suSetWidth(5),
-                            height: suSetWidth(5),
+                            width: setWidth(5),
+                            height: setWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 0),
                             ),
                           ),
-                          SizedBox(width: suSetWidth(10)),
+                          SizedBox(width: setWidth(10)),
                           Container(
-                            width: suSetWidth(5),
-                            height: suSetWidth(5),
+                            width: setWidth(5),
+                            height: setWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 1),
                             ),
                           ),
-                          SizedBox(width: suSetWidth(10)),
+                          SizedBox(width: setWidth(10)),
                           Container(
-                            width: suSetWidth(5),
-                            height: suSetWidth(5),
+                            width: setWidth(5),
+                            height: setWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 2),
                             ),
                           ),
-                          SizedBox(width: suSetWidth(10)),
+                          SizedBox(width: setWidth(10)),
                           Container(
-                            width: suSetWidth(5),
-                            height: suSetWidth(5),
+                            width: setWidth(5),
+                            height: setWidth(5),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _indicatorColor(snp.data, 3),
@@ -162,12 +170,6 @@ class _SplashVideoPageState extends State<SplashVideoPage>
   Color _indicatorColor(int currentIndex, int index) =>
       currentIndex == index ? Colors.white : Colors.white70;
 
-  @override
-  void dispose() {
-    _videoPlayerController?.dispose();
-    bottomSloganController.close();
-    super.dispose();
-  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -187,24 +189,24 @@ class _SplashVideoPageState extends State<SplashVideoPage>
 
   Positioned bottomFooterWidget() {
     return Positioned(
-      bottom: ScreenUtil.bottomBarHeight + suSetHeight(20),
+      bottom: ScreenUtil.bottomBarHeight + setHeight(20),
       left: 0,
       right: 0,
       child: Glide.loadAssetIcon(
         'ic_top_arrow_double.png',
-        height: suSetHeight(30),
+        height: setHeight(30),
       ),
     );
   }
 
   Positioned centerLogoWidget() {
     return Positioned(
-      top: suSetHeight(250),
+      top: setHeight(250),
       left: 0,
       right: 0,
       child: Glide.loadAssetIcon(
         'ic_account_login_header.png',
-        height: suSetHeight(100),
+        height: setHeight(100),
       ),
     );
   }

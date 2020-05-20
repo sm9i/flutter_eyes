@@ -18,6 +18,11 @@ dependencies:
   synchronized: 2.2.0
   #文字的逐个输出
   animated_text_kit: 2.0.0
+  dio: 3.0.9
+  #设备信息
+  device_info: 0.4.2+4
+  provider: 4.1.2
+  pull_to_refresh_notification: 0.3.4
 
 
 dev_dependencies:
@@ -45,6 +50,7 @@ flutter:
     - assets/videos/
     - assets/images/
     - assets/icons/
+    - assets/icons/bottom/
   fonts:
     - family: Normal
       fonts:
