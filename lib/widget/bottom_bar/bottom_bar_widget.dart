@@ -3,7 +3,7 @@ import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/widget/button/throttle_btn.dart';
 
-final bottomItem = [
+final List<BottomBarItem> bottomItem = <BottomBarItem>[
   BottomBarItem(0, 'ic_tab_strip_icon_category.png',
       'ic_tab_strip_icon_category_selected.png', '首页'),
   BottomBarItem(1, 'ic_tab_strip_icon_feed.png',
@@ -15,9 +15,10 @@ final bottomItem = [
 ];
 
 class BottomBarWidget extends StatelessWidget {
+  const BottomBarWidget({Key key, this.pageController}) : super(key: key);
   final PageController pageController;
 
-  const BottomBarWidget({Key key, this.pageController}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class BottomBarWidget extends StatelessWidget {
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         child: Row(
           children: bottomItem
-              .map((m) => Expanded(
+              .map((BottomBarItem m) => Expanded(
                   child: _BottomBarItemWidget(
                       item: m, pageController: pageController)))
               .toList(),
@@ -39,14 +40,14 @@ class BottomBarWidget extends StatelessWidget {
 }
 
 class _BottomBarItemWidget extends StatelessWidget {
-  final BottomBarItem item;
-  final PageController pageController;
-
   const _BottomBarItemWidget({
     Key key,
     this.item,
     this.pageController,
   }) : super(key: key);
+
+  final BottomBarItem item;
+  final PageController pageController;
 
   int getCurrentIndex() {
     if (pageController.page == null) {
@@ -60,7 +61,7 @@ class _BottomBarItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: pageController,
-      builder: (_, child) {
+      builder: (_, __) {
         return Throttle(
           onTap: () => pageController.jumpToPage(item.index),
           child: Container(
@@ -95,15 +96,15 @@ class _BottomBarItemWidget extends StatelessWidget {
 }
 
 class BottomBarItem {
-  final String unSelectedIcon;
-  final String selectedIcon;
-  final String title;
-  final int index;
-
   BottomBarItem(
     this.index,
     this.unSelectedIcon,
     this.selectedIcon,
     this.title,
   );
+
+  final String unSelectedIcon;
+  final String selectedIcon;
+  final String title;
+  final int index;
 }

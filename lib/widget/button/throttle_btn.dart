@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 ///节流btn
 ///[defaultTime] 时间限制在 毫秒内
-class Throttle extends StatelessWidget {
-  final int defaultTime;
-  final Widget child;
-  final GestureTapCallback onTap;
 
+class Throttle extends StatelessWidget {
   Throttle({
     Key key,
     this.defaultTime = 500,
-    this.onTap,
-    this.child,
+    @required this.onTap,
+    @required this.child,
   })  : assert(onTap != null && child != null),
         super(key: key);
+  final int defaultTime;
+  final Widget child;
+  final GestureTapCallback onTap;
 
   DateTime lastTap;
 
@@ -22,19 +22,19 @@ class Throttle extends StatelessWidget {
     return GestureDetector(
       child: child,
       onTap: () {
-        print("tap");
+        print('tap');
         onTap();
         return;
-        if (lastTap != null) {
-          print(DateTime.now().difference(lastTap) >
-              Duration(milliseconds: defaultTime));
-        }
-        if (lastTap == null ||
-            DateTime.now().difference(lastTap) >
-                Duration(milliseconds: defaultTime)) {
-          this.lastTap = DateTime.now();
-          onTap();
-        }
+//        if (lastTap != null) {
+//          print(DateTime.now().difference(lastTap) >
+//              Duration(milliseconds: defaultTime));
+//        }
+//        if (lastTap == null ||
+//            DateTime.now().difference(lastTap) >
+//                Duration(milliseconds: defaultTime)) {
+//          this.lastTap = DateTime.now();
+//          onTap();
+//        }
       },
     );
   }

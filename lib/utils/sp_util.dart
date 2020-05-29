@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:synchronized/synchronized.dart';
-
 class SpUtil {
   static SpUtil _singleton;
 
   static SharedPreferences _prefs;
 
-  static Lock _lock = Lock();
+  static final Lock _lock = Lock();
 
   static Future<SpUtil> getInstance() async {
     if (_singleton == null) {
@@ -15,7 +14,7 @@ class SpUtil {
         if (_singleton == null) {
           // keep local instance till it is fully initialized.
           // 保持本地实例直到完全初始化。
-          var singleton = SpUtil._();
+          final SpUtil singleton = SpUtil._();
           await singleton._init();
           _singleton = singleton;
         }
@@ -24,14 +23,16 @@ class SpUtil {
     return _singleton;
   }
 
+  // ignore: sort_constructors_first
   SpUtil._();
 
-  Future _init() async {
+  Future<void> _init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
   /// put object.
   static Future<bool> putObject(String key, Object value) {
+
     if (_prefs == null) return null;
     return _prefs.setString(key, value == null ? "" : json.encode(value));
   }
@@ -40,7 +41,9 @@ class SpUtil {
   static Map getObject(String key) {
     if (_prefs == null) return null;
     String _data = _prefs.getString(key);
-    return (_data == null || _data.isEmpty) ? null : json.decode(_data);
+    return (_data == null || _data.isEmpty)
+        ? null
+        : (json.decode(_data) as Map<dynamic, dynamic>);
   }
 
   /// put object list.
@@ -56,8 +59,8 @@ class SpUtil {
   static List<Map> getObjectList(String key) {
     if (_prefs == null) return null;
     List<String> dataLis = _prefs.getStringList(key);
-    return dataLis?.map((value) {
-      Map _dataMap = json.decode(value);
+    return dataLis?.map((String value) {
+      final Map _dataMap = json.decode(value) as Map<dynamic, dynamic>;
       return _dataMap;
     })?.toList();
   }
@@ -112,7 +115,7 @@ class SpUtil {
 
   /// get string list.
   static List<String> getStringList(String key,
-      {List<String> defValue: const []}) {
+      {List<String> defValue = const []}) {
     if (_prefs == null) return defValue;
     return _prefs.getStringList(key) ?? defValue;
   }
@@ -149,6 +152,7 @@ class SpUtil {
 
   /// clear.
   static Future<bool> clear() {
+
     if (_prefs == null) return null;
     return _prefs.clear();
   }

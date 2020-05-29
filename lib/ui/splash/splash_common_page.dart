@@ -15,10 +15,10 @@ import 'package:flutter_eyes/utils/utils.dart';
 import '../main_page.dart';
 
 class SplashCommonPage extends StatefulWidget {
-  final isShowUserAnim;
-
   const SplashCommonPage({Key key, @required this.isShowUserAnim})
       : super(key: key);
+
+  final bool isShowUserAnim;
 
   @override
   _SplashCommonPageState createState() => _SplashCommonPageState();
@@ -26,7 +26,7 @@ class SplashCommonPage extends StatefulWidget {
 
 class _SplashCommonPageState extends State<SplashCommonPage>
     with TickerProviderStateMixin {
-  final animDuration = Duration(milliseconds: 1600);
+  final Duration animDuration = const Duration(milliseconds: 1600);
 
   //移动动画
   Animation<double> _moveAnimation;
@@ -36,7 +36,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   AnimationController _rotationAnimationController;
 
   //文字动画
-  Animation _textAnimation;
+  Animation<double> _textAnimation;
   AnimationController _textTweenAnimationController;
 
   String eyeOut = 'ic_eye_white_outer.png';
@@ -49,7 +49,9 @@ class _SplashCommonPageState extends State<SplashCommonPage>
     rotationAnim();
     textAnim();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.isShowUserAnim) _moveAnimationController.forward();
+      if (widget.isShowUserAnim) {
+        _moveAnimationController.forward();
+      }
     });
 
     super.initState();
@@ -65,12 +67,12 @@ class _SplashCommonPageState extends State<SplashCommonPage>
 
   void textAnim() {
     _textTweenAnimationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
+        vsync: this, duration: const Duration(milliseconds: 1000));
 
     ///0xff444444
-    _textAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_textTweenAnimationController)
-          ..addStatusListener((state) {
+    _textAnimation = Tween<double>(begin: 0.0, end: 1.0)
+        .animate(_textTweenAnimationController)
+          ..addStatusListener((AnimationStatus state) {
             if (state == AnimationStatus.completed) {
               _rotationAnimationController.forward();
             }
@@ -80,11 +82,11 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   void moveAnim() {
     _moveAnimationController =
         AnimationController(vsync: this, duration: animDuration);
-    _moveAnimation = Tween(begin: setHeight(200), end: setHeight(300))
+    _moveAnimation = Tween<double>(begin: setHeight(200), end: setHeight(300))
         .animate(_moveAnimationController)
           ..addListener(() {
             if (_moveAnimationController.lastElapsedDuration != null) {
-              final currentTime =
+              final int currentTime =
                   _moveAnimationController.lastElapsedDuration.inMilliseconds;
               if (currentTime > 1300 &&
                   currentTime < 2000 &&
@@ -92,12 +94,14 @@ class _SplashCommonPageState extends State<SplashCommonPage>
                   eyeInner != 'ic_eye_black_inner.png') {
                 eyeOut = 'ic_eye_black_outer.png';
                 eyeInner = 'ic_eye_black_inner.png';
-                textColor = Color(0xff444444);
+                textColor = const Color(0xff444444);
               }
             }
-            if (mounted) setState(() {});
+            if (mounted) {
+              setState(() {});
+            }
           })
-          ..addStatusListener((state) {
+          ..addStatusListener((AnimationStatus state) {
             if (state == AnimationStatus.completed) {
               //上升完毕后执行旋转内部眼睛动画
               _textTweenAnimationController.forward();
@@ -109,12 +113,12 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   void rotationAnim() {
     _rotationAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 800),
     );
-    _rotationAnimationController.addStatusListener((state) {
+    _rotationAnimationController.addStatusListener((AnimationStatus state) {
       if (state == AnimationStatus.completed) {
         //主页面
-        _goMainPage();
+        _goMainPage<void>();
       }
     });
   }
@@ -129,15 +133,15 @@ class _SplashCommonPageState extends State<SplashCommonPage>
           loadWidget(),
           AnimatedBuilder(
             animation: _textAnimation,
-            builder: (context, child) {
+            builder: (BuildContext context, Widget child) {
               return Center(
                 child: Text(
                   Constants.forToday,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: setSp(34),
-                    color: Color.lerp(Colors.transparent, Color(0xff444444),
-                        _textAnimation.value),
+                    color: Color.lerp(Colors.transparent,
+                        const Color(0xff444444), _textAnimation.value),
                     fontFamily: FontType.lobster,
                   ),
                 ),
@@ -152,15 +156,15 @@ class _SplashCommonPageState extends State<SplashCommonPage>
               child: DefaultTextStyle(
                 style: TextStyle(
                   fontSize: setSp(16),
-                  color: Color(0xffB7B9B8),
+                  color: const Color(0xffB7B9B8),
                 ),
                 child: Column(
                   children: <Widget>[
-                    Text('-  2020/03/31  -'),
+                    const Text('-  2020/03/31  -'),
                     SizedBox(height: setHeight(10)),
                     Text(
                       Constants.todayChose,
-                      style: TextStyle(
+                      style: const TextStyle(
                         letterSpacing: 3,
                       ),
                     ),
@@ -180,7 +184,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
       bottom: setHeight(80),
       child: DefaultTextStyle(
         style: TextStyle(
-          color: Color(0xffB7B9B8),
+          color: const Color(0xffB7B9B8),
           fontSize: setSp(30),
         ),
         textAlign: TextAlign.center,
@@ -217,9 +221,9 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   Widget loadWidget() {
     if (widget.isShowUserAnim) {
       return TweenAnimationBuilder<double>(
-        tween: Tween(begin: 0, end: 1),
+        tween: Tween<double>(begin: 0, end: 1),
         duration: animDuration,
-        builder: (context, value, child) {
+        builder: (BuildContext context, double value, _) {
           return Container(
             color: Color.lerp(Colors.transparent, Colors.white, value),
             child: moveWidget(),
@@ -273,12 +277,12 @@ class _SplashCommonPageState extends State<SplashCommonPage>
   Widget backScaleWidget({bool showAnimation = false}) {
     if (showAnimation) {
       return TweenAnimationBuilder<double>(
-        tween: Tween(begin: 1, end: 1.08),
+        tween: Tween<double>(begin: 1, end: 1.08),
         duration: animDuration,
         onEnd: () {
-          _goMainPage();
+          _goMainPage<void>();
         },
-        builder: (context, value, child) {
+        builder: (_, double value, __) {
           return Transform.scale(
             scale: value,
             child: backWidget(),
@@ -301,7 +305,7 @@ class _SplashCommonPageState extends State<SplashCommonPage>
     );
   }
 
-  _goMainPage() {
-    goPageAndKillSelf(MainPage());
+  Future<T> _goMainPage<T>() {
+    return goPageAndKillSelf<T>(MainPage());
   }
 }

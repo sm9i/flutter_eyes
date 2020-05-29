@@ -3,18 +3,18 @@ import 'package:flutter_eyes/common/application.dart';
 
 ///Log 封装
 class LogUtil {
-  LogUtil.i(dynamic) {
-    debugPrint("Eye = [Info] : " + dynamic.toString());
+  LogUtil.i(dynamic dyn) {
+    debugPrint('Eye = [Info] : ' + dyn.toString());
   }
 
-  LogUtil.d(dynamic) {
-    if (Application.isDebug) {
-      debugPrint("Eye = [DEBUG] : " + dynamic.toString());
+  LogUtil.d(dynamic dyn) {
+    if (isDebug) {
+      debugPrint('Eye = [DEBUG] : ' + dyn.toString());
     }
   }
 
-  LogUtil.e(dynamic) {
-    debugPrint("Eye = [ERROR] : " + dynamic.toString());
+  LogUtil.e(dynamic dyn) {
+    debugPrint('Eye = [ERROR] : ' + dyn.toString());
   }
 }
 

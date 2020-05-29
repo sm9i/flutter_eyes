@@ -1,18 +1,19 @@
+import 'dart:math';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_eyes/constants/constants.dart';
 import 'package:flutter_eyes/constants/font_type.dart';
 import 'package:flutter_eyes/model/model.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/widget/head/head_banner.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
-import 'dart:math' as math;
 
 ///主页头部widget
 class HomeHeadWidget extends StatefulWidget {
+  const HomeHeadWidget({Key key, this.info}) : super(key: key);
   final TopIssue info;
 
-  const HomeHeadWidget({Key key, this.info}) : super(key: key);
+
 
   @override
   _HomeHeadWidgetState createState() => _HomeHeadWidgetState();
@@ -39,8 +40,7 @@ class _HomeHeadWidgetState extends State<HomeHeadWidget> {
   }
 
   Widget _builder(PullToRefreshScrollNotificationInfo info) {
-
-    final height = math.min((info?.dragOffset ?? 0.0), 100.0) +
+    final double height = min(info?.dragOffset ?? 0.0, 100.0) +
         MediaQuery.of(context).size.height * 0.4;
     //can player
 //    if (info?.mode != null) {
@@ -57,7 +57,7 @@ class _HomeHeadWidgetState extends State<HomeHeadWidget> {
             child: HeadBanner(
               controller: _controller,
               images: widget.info.data.itemList
-                  .map((m) => m.data.cover.feed)
+                  .map((TopIssueData m) => m.data.cover.feed)
                   .toList(),
             ),
           ),
@@ -69,9 +69,7 @@ class _HomeHeadWidgetState extends State<HomeHeadWidget> {
                   print(_controller);
                   return TyperAnimatedTextKit(
 //                    key: Key('${DateTime.now()},${_controller.event}'),
-                    text: [
-                      widget.info.data.itemList[0].data.title
-                    ],
+                    text: <String>[widget.info.data.itemList[0].data.title],
                     textStyle: TextStyle(
                       fontFamily: FontType.bold,
                       color: Colors.white,
@@ -79,7 +77,7 @@ class _HomeHeadWidgetState extends State<HomeHeadWidget> {
                     ),
                     textAlign: TextAlign.center,
                     isRepeatingAnimation: false,
-                    speed: Duration(milliseconds: 50),
+                    speed: const Duration(milliseconds: 50),
                   );
                 },
               ),

@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_eyes/constants/constants.dart';
-import 'package:flutter_eyes/widget/button/throttle_btn.dart';
 import 'package:flutter_eyes/widget/status/status_widget.dart';
 import 'package:provider/provider.dart';
 
 class MultiStatusWidget extends StatelessWidget {
-  final Widget content;
-  final WidgetProvider provider;
-  final GestureTapCallback errorTap;
-  final GestureTapCallback emptyTap;
-
   const MultiStatusWidget({
     Key key,
     @required this.provider,
@@ -18,12 +12,17 @@ class MultiStatusWidget extends StatelessWidget {
     this.emptyTap,
   }) : super(key: key);
 
+  final Widget content;
+  final WidgetProvider provider;
+  final GestureTapCallback errorTap;
+  final GestureTapCallback emptyTap;
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
+    return ChangeNotifierProvider<WidgetProvider>.value(
       value: provider,
       child: Selector<WidgetProvider, PageStatus>(
-        builder: (_, value, __) {
+        builder: (_, PageStatus value, __) {
           if (value == PageStatus.loading) {
             return Container(
               child: Center(child: StatusLoadWidget()),
@@ -48,7 +47,7 @@ class MultiStatusWidget extends StatelessWidget {
             return content;
           }
         },
-        selector: (_, s) => s.status,
+        selector: (_, WidgetProvider s) => s.status,
       ),
     );
   }
@@ -60,8 +59,10 @@ class WidgetProvider extends ChangeNotifier {
   PageStatus get status => _status;
 
   void changeStatus(PageStatus status) {
-    if (_status == status) return;
-    this._status = status;
+    if (_status == status) {
+      return;
+    }
+    _status = status;
     notifyListeners();
   }
 }

@@ -1,21 +1,19 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter_eyes/common/common_fun.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_eyes/common/helper.dart';
 import 'package:flutter_eyes/constants/configuration.dart';
 import 'package:flutter_eyes/constants/constants.dart';
 import 'package:flutter_eyes/constants/font_type.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
-import 'package:flutter_eyes/utils/net/net_util.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/sp_util.dart';
-import 'package:flutter_eyes/utils/utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
-import 'package:flutter_eyes/common/helper.dart';
 
-import '../main_page.dart';
 import '../../widget/intercept_vertical_widget.dart';
+import '../main_page.dart';
 
 ///主页面视频
 class SplashVideoPage extends StatefulWidget {
@@ -26,7 +24,7 @@ class SplashVideoPage extends StatefulWidget {
 class _SplashVideoPageState extends State<SplashVideoPage>
     with WidgetsBindingObserver {
   VideoPlayerController _videoPlayerController;
-  StreamController<int> bottomSloganController = StreamController();
+  StreamController<int> bottomSloganController = StreamController<int>();
 
   int sloganCurrentIndex = 0;
 
@@ -41,13 +39,13 @@ class _SplashVideoPageState extends State<SplashVideoPage>
     });
     super.initState();
   }
+
   @override
   void dispose() {
     _videoPlayerController?.dispose();
     bottomSloganController.close();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +63,12 @@ class _SplashVideoPageState extends State<SplashVideoPage>
               child: StreamBuilder<int>(
                 stream: bottomSloganController.stream,
                 initialData: sloganCurrentIndex,
-                builder: (_, snp) {
+                builder: (_, AsyncSnapshot<int> snp) {
                   return Column(
                     children: <Widget>[
                       TyperAnimatedTextKit(
                         key: Key('zh${snp.data}'),
-                        text: [Constants.sloganListZh[snp.data]],
+                        text: <String>[Constants.sloganListZh[snp.data]],
                         textStyle: TextStyle(
                           fontFamily: FontType.bold,
                           color: Colors.white,
@@ -78,11 +76,11 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
-                        speed: Duration(milliseconds: 50),
+                        speed: const Duration(milliseconds: 50),
                       ),
                       TyperAnimatedTextKit(
                         key: Key('en${snp.data}'),
-                        text: [Constants.sloganListEn[snp.data]],
+                        text: <String>[Constants.sloganListEn[snp.data]],
                         textStyle: TextStyle(
                           fontFamily: FontType.lobster,
                           color: Colors.white,
@@ -90,7 +88,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
                         ),
                         textAlign: TextAlign.center,
                         isRepeatingAnimation: false,
-                        speed: Duration(milliseconds: 10),
+                        speed: const Duration(milliseconds: 10),
                       ),
                       SizedBox(
                         height: setHeight(15),
@@ -142,8 +140,10 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             )
           ],
         ),
-        verticalCallBack: () => _goMainPage(),
-        horizontalCallBack: (axis) {
+        verticalCallBack: () {
+          _goMainPage<void>();
+        },
+        horizontalCallBack: (AxisDirection axis) {
           if (axis == AxisDirection.left) {
             if (sloganCurrentIndex == 0) {
               return;
@@ -152,7 +152,7 @@ class _SplashVideoPageState extends State<SplashVideoPage>
             bottomSloganController.add(sloganCurrentIndex);
           } else {
             if (sloganCurrentIndex == Constants.sloganListEn.length - 1) {
-              _goMainPage();
+              _goMainPage<void>();
               return;
             }
             sloganCurrentIndex++;
@@ -163,13 +163,15 @@ class _SplashVideoPageState extends State<SplashVideoPage>
     );
   }
 
-  _goMainPage() {
-    goPageAndKillSelf(MainPage());
+  Future<T> _goMainPage<T>() {
+    Navigator.push<T>(
+        context, MaterialPageRoute<T>(builder: (_) => SplashVideoPage()));
+
+    return goPageAndKillSelf<T>(MainPage());
   }
 
   Color _indicatorColor(int currentIndex, int index) =>
       currentIndex == index ? Colors.white : Colors.white70;
-
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_eyes/constants/font_type.dart';
-import 'package:flutter_eyes/utils/screens.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class ThemeUtil {
   static ThemeData get dartTheme => ThemeData.dark().copyWith(
         bottomAppBarColor: Colors.black54,

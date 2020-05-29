@@ -1,13 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_eyes/utils/image_util.dart';
 
 class HeadBanner extends StatefulWidget {
+  const HeadBanner({Key key, this.controller, this.images}) : super(key: key);
   final PageController controller;
   final List<String> images;
-
-  const HeadBanner({Key key, this.controller, this.images}) : super(key: key);
 
   @override
   _HeadBannerState createState() => _HeadBannerState();
@@ -26,6 +22,6 @@ class _HeadBannerState extends State<HeadBanner> {
 
   @override
   Widget build(BuildContext context) {
-
+    return Container();
   }
 }

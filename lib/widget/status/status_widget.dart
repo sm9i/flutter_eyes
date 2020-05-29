@@ -6,11 +6,11 @@ import 'package:flutter_eyes/widget/button/throttle_btn.dart';
 
 ///页面 为error 或者空数据时展示
 class StatusErrorWidget extends StatelessWidget {
-  final String errorMsg;
-  final GestureTapCallback onTap;
-
   const StatusErrorWidget({Key key, this.errorMsg = '网络异常', this.onTap})
       : super(key: key);
+
+  final String errorMsg;
+  final GestureTapCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +53,24 @@ class _StatusLoadWidgetState extends State<StatusLoadWidget>
 
   @override
   void initState() {
-    _animationController = new AnimationController(
+    _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 800),
     );
-    _animationController.addStatusListener((status) {
+    _animationController.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.completed) {
         _animationController.reset();
-        Future.delayed(const Duration(milliseconds: 300), () {
+        Future<void>.delayed(const Duration(milliseconds: 300), () {
           _animationController.forward();
         });
       }
     });
     SchedulerBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        Future.delayed(Duration(milliseconds: 500), () {
-          if (mounted) _animationController.forward();
+      (_) {
+        Future<void>.delayed(const Duration(milliseconds: 500), () {
+          if (mounted) {
+            _animationController.forward();
+          }
         });
       },
     );

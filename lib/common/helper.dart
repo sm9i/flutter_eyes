@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 extension Push on State {
-  Future goPage(Widget child) {
-    return Navigator.push(
-        context, new MaterialPageRoute(builder: (_) => child));
+  Future<T> goPage<T>(Widget child) {
+    return Navigator.push<T>(
+        context, MaterialPageRoute<T>(builder: (_) => child));
   }
 
-  Future goPageAndKillSelf(Widget child) {
+  Future<T> goPageAndKillSelf<T>(Widget child) {
     return Navigator.pushReplacement(
-      context,
-      new MaterialPageRoute(builder: (_) => child),
-    );
+        context, MaterialPageRoute<T>(builder: (_) => child));
   }
 }

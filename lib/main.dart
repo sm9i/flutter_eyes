@@ -11,11 +11,11 @@ import 'common/application.dart';
 import 'ui/splash/splash_page.dart';
 
 void main() async {
-  SystemUiOverlayStyle systemUiOverlayStyle =
+  final SystemUiOverlayStyle systemUiOverlayStyle =
       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   WidgetsFlutterBinding.ensureInitialized();
-  await Application.initApp();
+  await initApp();
   runApp(MultiProvider(
     providers: providers,
     child: MyApp(),
@@ -26,13 +26,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
-      builder: (_, value, child) {
+      builder: (_, AppProvider value, Widget child) {
         return MaterialApp(
           title: 'Flutter Demo Eyes',
           theme: value.theme,
-          navigatorKey: Application.globalKey,
+          navigatorKey: globalKey,
           debugShowCheckedModeBanner: false,
-          builder: (context, child) {
+          builder: (_, __) {
             ScreenUtil.init(
               context,
               allowFontScaling: false,

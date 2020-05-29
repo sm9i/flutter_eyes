@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 ///拦截左右滑动 和向下滑动
 class InterceptVerticalWidget extends StatefulWidget {
-  final Widget child;
-  final Function() verticalCallBack;
-  final Function(AxisDirection axis) horizontalCallBack;
-
   const InterceptVerticalWidget({
     Key key,
     @required this.child,
     this.verticalCallBack,
     this.horizontalCallBack,
   }) : super(key: key);
+
+  final Widget child;
+  final Function() verticalCallBack;
+  final Function(AxisDirection axis) horizontalCallBack;
 
   @override
   _InterceptVerticalWidgetState createState() =>
@@ -25,8 +25,8 @@ class _InterceptVerticalWidgetState extends State<InterceptVerticalWidget> {
   @override
   Widget build(BuildContext context) {
     return Listener(
-      onPointerDown: (down) => _onDown = down.position,
-      onPointerUp: (up) {
+      onPointerDown: (PointerDownEvent down) => _onDown = down.position,
+      onPointerUp: (PointerUpEvent up) {
         _onUp = up.position;
         _whenMoveFinish();
       },
@@ -36,9 +36,9 @@ class _InterceptVerticalWidgetState extends State<InterceptVerticalWidget> {
 
   void _whenMoveFinish() {
     //左右移
-    final offsetX = _onUp.dx - _onDown.dx;
+    final double offsetX = _onUp.dx - _onDown.dx;
     //上下移
-    final offsetY = _onUp.dy - _onDown.dy;
+    final double offsetY = _onUp.dy - _onDown.dy;
     //判断是左右还是上下
     if (offsetX.abs() > offsetY.abs()) {
       if (widget.horizontalCallBack != null) {
