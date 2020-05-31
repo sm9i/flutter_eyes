@@ -22,7 +22,6 @@ class Throttle extends StatelessWidget {
     return GestureDetector(
       child: child,
       onTap: () {
-        print('tap');
         onTap();
         return;
 //        if (lastTap != null) {

@@ -47,4 +47,6 @@ class ThemeUtil {
 //          bodyText2: TextStyle(color: Colors.black),
 //        ),
       );
+
+  static Color get dividerColor => const Color(0x66A2A2A2);
 }

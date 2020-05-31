@@ -8,9 +8,9 @@ class NetUtil {
   static final Dio _dio = Dio();
 
   //读写超时
-  static const _CONNECT_TIME_OUT = 5000;
-  static const _RECEIVE_TIME_OUT = 5000;
-  static const _SEND_TIME_OUT = 5000;
+  static const int _CONNECT_TIME_OUT = 5000;
+  static const int _RECEIVE_TIME_OUT = 5000;
+  static const int _SEND_TIME_OUT = 5000;
 
   static void initConfig() {
     //拦截器
@@ -78,10 +78,11 @@ class NetUtil {
 }
 
 class BaseError {
+  const BaseError(this.errorCode, this.errorMsg);
   final ErrorCode errorCode;
   final String errorMsg;
 
-  const BaseError(this.errorCode, this.errorMsg);
+
 }
 
 enum ErrorCode {

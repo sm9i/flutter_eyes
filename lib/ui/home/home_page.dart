@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_eyes/common/application.dart';
 import 'package:flutter_eyes/model/model.dart';
 import 'package:flutter_eyes/ui/home/provider/home_provider.dart';
-import 'package:flutter_eyes/widget/head/home_head_widget.dart';
+import 'package:flutter_eyes/ui/video/video_page.dart';
+import 'package:flutter_eyes/widget/button/throttle_btn.dart';
+import 'package:flutter_eyes/widget/home/home_head_widget.dart';
+import 'package:flutter_eyes/widget/home/home_item_widget.dart';
 import 'package:flutter_eyes/widget/status/provider_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
@@ -29,16 +33,45 @@ class _HomePageState extends State<HomePage>
       errorTap: () {
         _homeProvider.getHomeInfo();
       },
-      content: ChangeNotifierProvider.value(
+      content: ChangeNotifierProvider<HomeProvider>.value(
         value: _homeProvider,
         child: Selector<HomeProvider, BaseInfo>(
-          builder: (_, value, __) => PullToRefreshNotification(
-            onRefresh: () => _homeProvider.getHomeInfo(),
-//            onRefresh: () => Future.value(true),
-            pullBackOnRefresh: true,
-            child: _HomeWidget(info: value),
+          selector: (_, HomeProvider provider) => provider.baseInfo,
+          builder: (_, BaseInfo value, __) => PullToRefreshNotification(
+            onRefresh: _homeProvider.getHomeInfo,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: ClampingScrollPhysics()),
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: HomeHeadWidget(
+                    topIssue: value.topIssue,
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, int index) => Throttle(
+                      onTap: () {
+                        globalKey.currentState.push<void>(
+                          MaterialPageRoute<void>(
+                            builder: (_) => VideoPage(
+                              currentInfo: value.itemList[index].data.content.data,
+                              videosInfo: value.itemList,
+                              defaultIndex: index,
+                            ),
+                          ),
+                        );
+                      },
+                      child: HomeItemWidget(
+                        contentInfo: value.itemList[index].data,
+                      ),
+                    ),
+                    childCount: value.itemList.length,
+                  ),
+                ),
+              ],
+            ),
           ),
-          selector: (_, s) => s.baseInfo,
         ),
       ),
     );
@@ -52,20 +85,4 @@ class _HomePageState extends State<HomePage>
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _HomeWidget extends StatelessWidget {
-  final BaseInfo info;
-
-  const _HomeWidget({Key key, this.info}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: AlwaysScrollableScrollPhysics(parent: ClampingScrollPhysics()),
-      slivers: <Widget>[
-        SliverToBoxAdapter(child: HomeHeadWidget(info: info.topIssue))
-      ],
-    );
-  }
 }

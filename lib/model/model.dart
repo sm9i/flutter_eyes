@@ -1,793 +1,1065 @@
-//class BaseInfo {
-//  List<Content> itemList;
-//  int count;
-//  int total;
-//  String nextPageUrl;
-//  bool adExist;
-//  int date;
-//  int nextPublishTime;
-//
-////  Null dialog;
-//  TopIssue topIssue;
-//  int refreshCount;
-//  int lastStartId;
-//
-//  BaseInfo(
-//      {this.itemList,
-//      this.count,
-//      this.total,
-//      this.nextPageUrl,
-//      this.adExist,
-//      this.date,
-//      this.nextPublishTime,
-////        this.dialog,
-//      this.topIssue,
-//      this.refreshCount,
-//      this.lastStartId});
-//
-//  BaseInfo.fromJson(Map<String, dynamic> json) {
-//    if (json['itemList'] != null) {
-//      itemList = new List<Content>();
-//      json['itemList'].forEach((v) {
-//        itemList.add(new Content.fromJson(v));
-//      });
-//    }
-//    count = json['count'];
-//    total = json['total'];
-//    nextPageUrl = json['nextPageUrl'];
-//    adExist = json['adExist'];
-//    date = json['date'];
-//    nextPublishTime = json['nextPublishTime'];
-////    dialog = json['dialog'];
-//    topIssue = json['topIssue'] != null
-//        ? new TopIssue.fromJson(json['topIssue'])
-//        : null;
-//    refreshCount = json['refreshCount'];
-//    lastStartId = json['lastStartId'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    if (this.itemList != null) {
-//      data['itemList'] = this.itemList.map((v) => v.toJson()).toList();
-//    }
-//    data['count'] = this.count;
-//    data['total'] = this.total;
-//    data['nextPageUrl'] = this.nextPageUrl;
-//    data['adExist'] = this.adExist;
-//    data['date'] = this.date;
-//    data['nextPublishTime'] = this.nextPublishTime;
-////    data['dialog'] = this.dialog;
-//    if (this.topIssue != null) {
-//      data['topIssue'] = this.topIssue.toJson();
-//    }
-//    data['refreshCount'] = this.refreshCount;
-//    data['lastStartId'] = this.lastStartId;
-//    return data;
-//  }
-//}
-//
-//class TopIssue {
-//  String type;
-//  TopIssueModel data;
-//  String tag;
-//  int id;
-//  int adIndex;
-//
-//  TopIssue({this.type, this.data, this.tag, this.id, this.adIndex});
-//
-//  TopIssue.fromJson(Map<String, dynamic> json) {
-//    type = json['type'];
-//    data =
-//        json['data'] != null ? new TopIssueModel.fromJson(json['data']) : null;
-//    tag = json['tag'];
-//    id = json['id'];
-//    adIndex = json['adIndex'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['type'] = this.type;
-//    if (this.data != null) {
-//      data['data'] = this.data.toJson();
-//    }
-//    data['tag'] = this.tag;
-//    data['id'] = this.id;
-//    data['adIndex'] = this.adIndex;
-//    return data;
-//  }
-//}
-//
-//class TopIssueData {
-//  String type;
-//  ContentModel data;
-//  String tag;
-//  int id;
-//  int adIndex;
-//
-//  TopIssueData({this.type, this.data, this.tag, this.id, this.adIndex});
-//
-//  TopIssueData.fromJson(Map<String, dynamic> json) {
-//    type = json['type'];
-//    data =
-//        json['data'] != null ? new ContentModel.fromJson(json['data']) : null;
-//    tag = json['tag'];
-//    id = json['id'];
-//    adIndex = json['adIndex'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['type'] = this.type;
-//    if (this.data != null) {
-//      data['data'] = this.data.toJson();
-//    }
-//    data['tag'] = this.tag;
-//    data['id'] = this.id;
-//    data['adIndex'] = this.adIndex;
-//    return data;
-//  }
-//}
-//
-//class TopIssueModel {
-//  String dataType;
-//  List<TopIssueData> itemList;
-//  int count;
-//
-//  TopIssueModel({this.dataType, this.itemList, this.count});
-//
-//  TopIssueModel.fromJson(Map<String, dynamic> json) {
-//    dataType = json['dataType'];
-//    if (json['itemList'] != null) {
-//      itemList = new List<TopIssueData>();
-//      json['itemList'].forEach((v) {
-//        itemList.add(new TopIssueData.fromJson(v));
-//      });
-//    }
-//    count = json['count'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['dataType'] = this.dataType;
-//    if (this.itemList != null) {
-//      data['itemList'] = this.itemList.map((v) => v.toJson()).toList();
-//    }
-//    data['count'] = this.count;
-//    return data;
-//  }
-//}
-//
-//class Content {
-//  String type;
-//  ContentModel data;
-//  String tag;
-//  int id;
-//  int adIndex;
-//
-//  Content({this.type, this.data, this.tag, this.id, this.adIndex});
-//
-//  Content.fromJson(Map<String, dynamic> json) {
-//    type = json['type'];
-//    data =
-//        json['data'] != null ? new ContentModel.fromJson(json['data']) : null;
-//    tag = json['tag'];
-//    id = json['id'];
-//    adIndex = json['adIndex'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['type'] = this.type;
-//    if (this.data != null) {
-//      data['data'] = this.data.toJson();
-//    }
-//    data['tag'] = this.tag;
-//    data['id'] = this.id;
-//    data['adIndex'] = this.adIndex;
-//    return data;
-//  }
-//}
-//
-//class ContentModel {
-//  String dataType;
-//  int id;
-//  String title;
-//  String description;
-//  String library;
-//  List<TagsModel> tags;
-//  ConsumptionModel consumption;
-//  String resourceType;
-//  String slogan;
-//  ProviderModel provider;
-//  String category;
-//  AuthorModel author;
-//  CoverModel cover;
-//  String playUrl;
-//  String thumbPlayUrl;
-//  int duration;
-//  WebUrlModel webUrl;
-//  int releaseTime;
-//  List<PlayInfoModel> playInfo;
-//  String campaign;
-//  String waterMarks;
-//  bool ad;
-//
-////  Null adTrack;
-//  String type;
-//  String titlePgc;
-//  String descriptionPgc;
-//  String remark;
-//  bool ifLimitVideo;
-//  int searchWeight;
-//
-////  Null brandWebsiteInfo;
-//  int idx;
-//  String shareAdTrack;
-//  String favoriteAdTrack;
-//  String webAdTrack;
-//  int date;
-//
-////  Null promotion;
-////  Null label;
-////  List<String > labelList;
-//  String descriptionEditor;
-//  bool collected;
-//  bool reallyCollected;
-//  bool played;
-//  List<dynamic> subtitles;
-//  String lastViewTime;
-//  String playlists;
-//  int src;
-//  String recallSource;
-//
-//  ContentModel(
-//      {this.dataType,
-//      this.id,
-//      this.title,
-//      this.description,
-//      this.library,
-//      this.tags,
-//      this.consumption,
-//      this.resourceType,
-//      this.slogan,
-//      this.provider,
-//      this.category,
-//      this.author,
-//      this.cover,
-//      this.playUrl,
-//      this.thumbPlayUrl,
-//      this.duration,
-//      this.webUrl,
-//      this.releaseTime,
-//      this.playInfo,
-//      this.campaign,
-//      this.waterMarks,
-//      this.ad,
-////        this.adTrack,
-//      this.type,
-//      this.titlePgc,
-//      this.descriptionPgc,
-//      this.remark,
-//      this.ifLimitVideo,
-//      this.searchWeight,
-////        this.brandWebsiteInfo,
-//      this.idx,
-//      this.shareAdTrack,
-//      this.favoriteAdTrack,
-//      this.webAdTrack,
-//      this.date,
-////        this.promotion,
-////        this.label,
-////        this.labelList,
-//      this.descriptionEditor,
-//      this.collected,
-//      this.reallyCollected,
-//      this.played,
-//      this.subtitles,
-//      this.lastViewTime,
-//      this.playlists,
-//      this.src,
-//      this.recallSource});
-//
-//  ContentModel.fromJson(Map<String, dynamic> json) {
-//    dataType = json['dataType'];
-//    id = json['id'];
-//    title = json['title'];
-//    description = json['description'];
-//    library = json['library'];
-//    if (json['tags'] != null) {
-//      tags = new List<TagsModel>();
-//      json['tags'].forEach((v) {
-//        tags.add(new TagsModel.fromJson(v));
-//      });
-//    }
-//    consumption = json['consumption'] != null
-//        ? new ConsumptionModel.fromJson(json['consumption'])
-//        : null;
-//    resourceType = json['resourceType'];
-//    slogan = json['slogan'];
-//    provider = json['provider'] != null
-//        ? new ProviderModel.fromJson(json['provider'])
-//        : null;
-//    category = json['category'];
-//    author = json['author'] != null
-//        ? new AuthorModel.fromJson(json['author'])
-//        : null;
-//    cover =
-//        json['cover'] != null ? new CoverModel.fromJson(json['cover']) : null;
-//    playUrl = json['playUrl'];
-//    thumbPlayUrl = json['thumbPlayUrl'];
-//    duration = json['duration'];
-//    webUrl = json['webUrl'] != null
-//        ? new WebUrlModel.fromJson(json['webUrl'])
-//        : null;
-//    releaseTime = json['releaseTime'];
-//    if (json['playInfo'] != null) {
-//      playInfo = new List<PlayInfoModel>();
-//      json['playInfo'].forEach((v) {
-//        playInfo.add(new PlayInfoModel.fromJson(v));
-//      });
-//    }
-//    campaign = json['campaign'];
-//    waterMarks = json['waterMarks'];
-//    ad = json['ad'];
-////    adTrack = json['adTrack'];
-//    type = json['type'];
-//    titlePgc = json['titlePgc'];
-//    descriptionPgc = json['descriptionPgc'];
-//    remark = json['remark'];
-//    ifLimitVideo = json['ifLimitVideo'];
-//    searchWeight = json['searchWeight'];
-////    brandWebsiteInfo = json['brandWebsiteInfo'];
-//    idx = json['idx'];
-//    shareAdTrack = json['shareAdTrack'];
-//    favoriteAdTrack = json['favoriteAdTrack'];
-//    webAdTrack = json['webAdTrack'];
-//    date = json['date'];
-////    promotion = json['promotion'];
-////    label = json['label'];
-////    if (json['labelList'] != null) {
-////      labelList = new List<Null>();
-////      json['labelList'].forEach((v) {
-////        labelList.add(new Null.fromJson(v));
-////      });
-////    }
-//    descriptionEditor = json['descriptionEditor'];
-//    collected = json['collected'];
-//    reallyCollected = json['reallyCollected'];
-//    played = json['played'];
-//    if (json['subtitles'] != null) {
-//      subtitles = new List<String>();
-//      json['subtitles'].forEach((v) {
-//        subtitles.add(v);
-//      });
-//    }
-//    lastViewTime = json['lastViewTime'];
-//    playlists = json['playlists'];
-//    src = json['src'];
-//    recallSource = json['recallSource'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['dataType'] = this.dataType;
-//    data['id'] = this.id;
-//    data['title'] = this.title;
-//    data['description'] = this.description;
-//    data['library'] = this.library;
-//    if (this.tags != null) {
-//      data['tags'] = this.tags.map((v) => v.toJson()).toList();
-//    }
-//    if (this.consumption != null) {
-//      data['consumption'] = this.consumption.toJson();
-//    }
-//    data['resourceType'] = this.resourceType;
-//    data['slogan'] = this.slogan;
-//    if (this.provider != null) {
-//      data['provider'] = this.provider.toJson();
-//    }
-//    data['category'] = this.category;
-//    if (this.author != null) {
-//      data['author'] = this.author.toJson();
-//    }
-//    if (this.cover != null) {
-//      data['cover'] = this.cover.toJson();
-//    }
-//    data['playUrl'] = this.playUrl;
-//    data['thumbPlayUrl'] = this.thumbPlayUrl;
-//    data['duration'] = this.duration;
-//    if (this.webUrl != null) {
-//      data['webUrl'] = this.webUrl.toJson();
-//    }
-//    data['releaseTime'] = this.releaseTime;
-//    if (this.playInfo != null) {
-//      data['playInfo'] = this.playInfo.map((v) => v.toJson()).toList();
-//    }
-//    data['campaign'] = this.campaign;
-//    data['waterMarks'] = this.waterMarks;
-//    data['ad'] = this.ad;
-////    data['adTrack'] = this.adTrack;
-//    data['type'] = this.type;
-//    data['titlePgc'] = this.titlePgc;
-//    data['descriptionPgc'] = this.descriptionPgc;
-//    data['remark'] = this.remark;
-//    data['ifLimitVideo'] = this.ifLimitVideo;
-//    data['searchWeight'] = this.searchWeight;
-////    data['brandWebsiteInfo'] = this.brandWebsiteInfo;
-//    data['idx'] = this.idx;
-//    data['shareAdTrack'] = this.shareAdTrack;
-//    data['favoriteAdTrack'] = this.favoriteAdTrack;
-//    data['webAdTrack'] = this.webAdTrack;
-//    data['date'] = this.date;
-////    data['promotion'] = this.promotion;
-////    data['label'] = this.label;
-////    if (this.labelList != null) {
-////      data['labelList'] = this.labelList.map((v) => v.toJson()).toList();
-////    }
-//    data['descriptionEditor'] = this.descriptionEditor;
-//    data['collected'] = this.collected;
-//    data['reallyCollected'] = this.reallyCollected;
-//    data['played'] = this.played;
-//    if (this.subtitles != null) {
-//      data['subtitles'] = this.subtitles.map((v) => v.toJson()).toList();
-//    }
-//    data['lastViewTime'] = this.lastViewTime;
-//    data['playlists'] = this.playlists;
-//    data['src'] = this.src;
-//    data['recallSource'] = this.recallSource;
-//    return data;
-//  }
-//}
-//
-//class TagsModel {
-//  int id;
-//  String name;
-//  String actionUrl;
-//  String adTrack;
-//
-////  String desc;
-////  String bgPicture;
-////  String headerImage;
-////  String tagRecType;
-////  Null childTagList;
-////  Null childTagIdList;
-////  bool haveReward;
-////  bool ifNewest;
-////  Null newestEndTime;
-////  int communityIndex;
-//
-//  TagsModel({
-//    this.id,
-//    this.name,
-//    this.actionUrl,
-//    this.adTrack,
-////    this.desc,
-////    this.bgPicture,
-////    this.headerImage,
-////    this.tagRecType,
-////    this.childTagList,
-////    this.childTagIdList,
-////    this.haveReward,
-////    this.ifNewest,
-////    this.newestEndTime,
-////    this.communityIndex,
-//  });
-//
-//  TagsModel.fromJson(Map<String, dynamic> json) {
-//    id = json['id'];
-//    name = json['name'];
-//    actionUrl = json['actionUrl'];
-//    adTrack = json['adTrack'];
-////    desc = json['desc'];
-////    bgPicture = json['bgPicture'];
-////    headerImage = json['headerImage'];
-////    tagRecType = json['tagRecType'];
-////    childTagList = json['childTagList'];
-////    childTagIdList = json['childTagIdList'];
-////    haveReward = json['haveReward'];
-////    ifNewest = json['ifNewest'];
-////    newestEndTime = json['newestEndTime'];
-////    communityIndex = json['communityIndex'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['id'] = this.id;
-//    data['name'] = this.name;
-//    data['actionUrl'] = this.actionUrl;
-//    data['adTrack'] = this.adTrack;
-////    data['desc'] = this.desc;
-////    data['bgPicture'] = this.bgPicture;
-////    data['headerImage'] = this.headerImage;
-////    data['tagRecType'] = this.tagRecType;
-////    data['childTagList'] = this.childTagList;
-////    data['childTagIdList'] = this.childTagIdList;
-////    data['haveReward'] = this.haveReward;
-////    data['ifNewest'] = this.ifNewest;
-////    data['newestEndTime'] = this.newestEndTime;
-////    data['communityIndex'] = this.communityIndex;
-//    return data;
-//  }
-//}
-//
-//class PlayInfoModel {
-//  int height;
-//  int width;
-//  List<UrlListModel> urlList;
-//  String name;
-//  String type;
-//  String url;
-//
-//  PlayInfoModel(
-//      {this.height, this.width, this.urlList, this.name, this.type, this.url});
-//
-//  PlayInfoModel.fromJson(Map<String, dynamic> json) {
-//    height = json['height'];
-//    width = json['width'];
-//    if (json['urlList'] != null) {
-//      urlList = new List<UrlListModel>();
-//      json['urlList'].forEach((v) {
-//        urlList.add(new UrlListModel.fromJson(v));
-//      });
-//    }
-//    name = json['name'];
-//    type = json['type'];
-//    url = json['url'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['height'] = this.height;
-//    data['width'] = this.width;
-//    if (this.urlList != null) {
-//      data['urlList'] = this.urlList.map((v) => v.toJson()).toList();
-//    }
-//    data['name'] = this.name;
-//    data['type'] = this.type;
-//    data['url'] = this.url;
-//    return data;
-//  }
-//}
-//
-//class UrlListModel {
-//  String name;
-//  String url;
-//  int size;
-//
-//  UrlListModel({this.name, this.url, this.size});
-//
-//  UrlListModel.fromJson(Map<String, dynamic> json) {
-//    name = json['name'];
-//    url = json['url'];
-//    size = json['size'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['name'] = this.name;
-//    data['url'] = this.url;
-//    data['size'] = this.size;
-//    return data;
-//  }
-//}
-//
-//class WebUrlModel {
-//  String raw;
-//  String forWeibo;
-//
-//  WebUrlModel({this.raw, this.forWeibo});
-//
-//  WebUrlModel.fromJson(Map<String, dynamic> json) {
-//    raw = json['raw'];
-//    forWeibo = json['forWeibo'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['raw'] = this.raw;
-//    data['forWeibo'] = this.forWeibo;
-//    return data;
-//  }
-//}
-//
-//class CoverModel {
-//  String feed;
-//  String detail;
-//  String blurred;
-//  String sharing;
-//  String homepage;
-//
-//  CoverModel(
-//      {this.feed, this.detail, this.blurred, this.sharing, this.homepage});
-//
-//  CoverModel.fromJson(Map<String, dynamic> json) {
-//    feed = json['feed'];
-//    detail = json['detail'];
-//    blurred = json['blurred'];
-//    sharing = json['sharing'];
-//    homepage = json['homepage'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['feed'] = this.feed;
-//    data['detail'] = this.detail;
-//    data['blurred'] = this.blurred;
-//    data['sharing'] = this.sharing;
-//    data['homepage'] = this.homepage;
-//    return data;
-//  }
-//}
-//
-//class AuthorModel {
-//  int id;
-//  String icon;
-//  String name;
-//  String description;
-//  String link;
-//  int latestReleaseTime;
-//  int videoNum;
-//  String adTrack;
-//  FollowModel follow;
-//  ShieldModel shield;
-//  int approvedNotReadyVideoCount;
-//  bool ifPgc;
-//  int recSort;
-//  bool expert;
-//
-//  AuthorModel(
-//      {this.id,
-//      this.icon,
-//      this.name,
-//      this.description,
-//      this.link,
-//      this.latestReleaseTime,
-//      this.videoNum,
-//      this.adTrack,
-//      this.follow,
-//      this.shield,
-//      this.approvedNotReadyVideoCount,
-//      this.ifPgc,
-//      this.recSort,
-//      this.expert});
-//
-//  AuthorModel.fromJson(Map<String, dynamic> json) {
-//    id = json['id'];
-//    icon = json['icon'];
-//    name = json['name'];
-//    description = json['description'];
-//    link = json['link'];
-//    latestReleaseTime = json['latestReleaseTime'];
-//    videoNum = json['videoNum'];
-//    adTrack = json['adTrack'];
-//    follow = json['follow'] != null
-//        ? new FollowModel.fromJson(json['follow'])
-//        : null;
-//    shield = json['shield'] != null
-//        ? new ShieldModel.fromJson(json['shield'])
-//        : null;
-//    approvedNotReadyVideoCount = json['approvedNotReadyVideoCount'];
-//    ifPgc = json['ifPgc'];
-//    recSort = json['recSort'];
-//    expert = json['expert'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['id'] = this.id;
-//    data['icon'] = this.icon;
-//    data['name'] = this.name;
-//    data['description'] = this.description;
-//    data['link'] = this.link;
-//    data['latestReleaseTime'] = this.latestReleaseTime;
-//    data['videoNum'] = this.videoNum;
-//    data['adTrack'] = this.adTrack;
-//    if (this.follow != null) {
-//      data['follow'] = this.follow.toJson();
-//    }
-//    if (this.shield != null) {
-//      data['shield'] = this.shield.toJson();
-//    }
-//    data['approvedNotReadyVideoCount'] = this.approvedNotReadyVideoCount;
-//    data['ifPgc'] = this.ifPgc;
-//    data['recSort'] = this.recSort;
-//    data['expert'] = this.expert;
-//    return data;
-//  }
-//}
-//
-//class ShieldModel {
-//  String itemType;
-//  int itemId;
-//  bool shielded;
-//
-//  ShieldModel({this.itemType, this.itemId, this.shielded});
-//
-//  ShieldModel.fromJson(Map<String, dynamic> json) {
-//    itemType = json['itemType'];
-//    itemId = json['itemId'];
-//    shielded = json['shielded'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['itemType'] = this.itemType;
-//    data['itemId'] = this.itemId;
-//    data['shielded'] = this.shielded;
-//    return data;
-//  }
-//}
-//
-//class FollowModel {
-//  String itemType;
-//  int itemId;
-//  bool followed;
-//
-//  FollowModel({this.itemType, this.itemId, this.followed});
-//
-//  FollowModel.fromJson(Map<String, dynamic> json) {
-//    itemType = json['itemType'];
-//    itemId = json['itemId'];
-//    followed = json['followed'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['itemType'] = this.itemType;
-//    data['itemId'] = this.itemId;
-//    data['followed'] = this.followed;
-//    return data;
-//  }
-//}
-//
-//class ProviderModel {
-//  String name;
-//  String alias;
-//  String icon;
-//
-//  ProviderModel({this.name, this.alias, this.icon});
-//
-//  ProviderModel.fromJson(Map<String, dynamic> json) {
-//    name = json['name'];
-//    alias = json['alias'];
-//    icon = json['icon'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['name'] = this.name;
-//    data['alias'] = this.alias;
-//    data['icon'] = this.icon;
-//    return data;
-//  }
-//}
-//
-//class ConsumptionModel {
-//  int collectionCount;
-//  int shareCount;
-//  int replyCount;
-//  int realCollectionCount;
-//
-//  ConsumptionModel(
-//      {this.collectionCount,
-//      this.shareCount,
-//      this.replyCount,
-//      this.realCollectionCount});
-//
-//  ConsumptionModel.fromJson(Map<String, dynamic> json) {
-//    collectionCount = json['collectionCount'];
-//    shareCount = json['shareCount'];
-//    replyCount = json['replyCount'];
-//    realCollectionCount = json['realCollectionCount'];
-//  }
-//
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['collectionCount'] = this.collectionCount;
-//    data['shareCount'] = this.shareCount;
-//    data['replyCount'] = this.replyCount;
-//    data['realCollectionCount'] = this.realCollectionCount;
-//    return data;
-//  }
-//}
+import 'dart:convert' show json;
+
+T asT<T>(dynamic value) {
+  if (value is T) {
+    return value;
+  }
+
+  return null;
+}
+
+class BaseInfo {
+  BaseInfo({
+    this.itemList,
+    this.count,
+    this.total,
+    this.nextPageUrl,
+    this.adExist,
+    this.date,
+    this.nextPublishTime,
+    this.dialog,
+    this.topIssue,
+    this.refreshCount,
+    this.lastStartId,
+  });
+
+  factory BaseInfo.fromJson(Map<String, dynamic> jsonRes) {
+    if (jsonRes == null) {
+      return null;
+    }
+
+    final List<Content> itemList =
+        jsonRes['itemList'] is List ? <Content>[] : null;
+    if (itemList != null) {
+      for (final dynamic item in jsonRes['itemList']) {
+        if (item != null) {
+          itemList.add(Content.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+    return BaseInfo(
+      itemList: itemList,
+      count: asT<int>(jsonRes['count']),
+      total: asT<int>(jsonRes['total']),
+      nextPageUrl: asT<String>(jsonRes['nextPageUrl']),
+      adExist: asT<bool>(jsonRes['adExist']),
+      date: asT<int>(jsonRes['date']),
+      nextPublishTime: asT<int>(jsonRes['nextPublishTime']),
+      dialog: asT<Object>(jsonRes['dialog']),
+      topIssue:
+          TopIssue.fromJson(asT<Map<String, dynamic>>(jsonRes['topIssue'])),
+      refreshCount: asT<int>(jsonRes['refreshCount']),
+      lastStartId: asT<int>(jsonRes['lastStartId']),
+    );
+  }
+
+  List<Content> itemList;
+  int count;
+  int total;
+  String nextPageUrl;
+  bool adExist;
+  int date;
+  int nextPublishTime;
+  Object dialog;
+  TopIssue topIssue;
+  int refreshCount;
+  int lastStartId;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'itemList': itemList,
+        'count': count,
+        'total': total,
+        'nextPageUrl': nextPageUrl,
+        'adExist': adExist,
+        'date': date,
+        'nextPublishTime': nextPublishTime,
+        'dialog': dialog,
+        'topIssue': topIssue,
+        'refreshCount': refreshCount,
+        'lastStartId': lastStartId,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class Content {
+  Content({
+    this.type,
+    this.data,
+    this.tag,
+    this.id,
+    this.adIndex,
+  });
+
+  factory Content.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : Content(
+          type: asT<String>(jsonRes['type']),
+          data:
+              ContentInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['data'])),
+          tag: asT<Object>(jsonRes['tag']),
+          id: asT<int>(jsonRes['id']),
+          adIndex: asT<int>(jsonRes['adIndex']),
+        );
+
+  String type;
+  ContentInfo data;
+  Object tag;
+  int id;
+  int adIndex;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'type': type,
+        'data': data,
+        'tag': tag,
+        'id': id,
+        'adIndex': adIndex,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class Header {
+  Header({
+    this.id,
+    this.title,
+    this.font,
+    this.subTitle,
+    this.subTitleFont,
+    this.textAlign,
+    this.cover,
+    this.label,
+    this.actionUrl,
+    this.labelList,
+    this.rightText,
+    this.icon,
+    this.iconType,
+    this.description,
+    this.time,
+    this.showHateVideo,
+  });
+
+  factory Header.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : Header(
+          id: asT<int>(jsonRes['id']),
+          title: asT<String>(jsonRes['title']),
+          font: asT<Object>(jsonRes['font']),
+          subTitle: asT<Object>(jsonRes['subTitle']),
+          subTitleFont: asT<Object>(jsonRes['subTitleFont']),
+          textAlign: asT<String>(jsonRes['textAlign']),
+          cover: asT<Object>(jsonRes['cover']),
+          label: asT<Object>(jsonRes['label']),
+          actionUrl: asT<String>(jsonRes['actionUrl']),
+          labelList: asT<Object>(jsonRes['labelList']),
+          rightText: asT<Object>(jsonRes['rightText']),
+          icon: asT<String>(jsonRes['icon']),
+          iconType: asT<String>(jsonRes['iconType']),
+          description: asT<String>(jsonRes['description']),
+          time: asT<int>(jsonRes['time']),
+          showHateVideo: asT<bool>(jsonRes['showHateVideo']),
+        );
+
+  int id;
+  String title;
+  Object font;
+  Object subTitle;
+  Object subTitleFont;
+  String textAlign;
+  Object cover;
+  Object label;
+  String actionUrl;
+  Object labelList;
+  Object rightText;
+  String icon;
+  String iconType;
+  String description;
+  int time;
+  bool showHateVideo;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'title': title,
+        'font': font,
+        'subTitle': subTitle,
+        'subTitleFont': subTitleFont,
+        'textAlign': textAlign,
+        'cover': cover,
+        'label': label,
+        'actionUrl': actionUrl,
+        'labelList': labelList,
+        'rightText': rightText,
+        'icon': icon,
+        'iconType': iconType,
+        'description': description,
+        'time': time,
+        'showHateVideo': showHateVideo,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class ContentInfo {
+  ContentInfo({
+    this.dataType,
+    this.id,
+    this.title,
+    this.description,
+    this.library,
+    this.tags,
+    this.consumption,
+    this.resourceType,
+    this.slogan,
+    this.provider,
+    this.category,
+    this.author,
+    this.cover,
+    this.playUrl,
+    this.thumbPlayUrl,
+    this.duration,
+    this.webUrl,
+    this.releaseTime,
+    this.playInfo,
+    this.campaign,
+    this.waterMarks,
+    this.ad,
+    this.adTrack,
+    this.type,
+    this.titlePgc,
+    this.descriptionPgc,
+    this.remark,
+    this.ifLimitVideo,
+    this.searchWeight,
+    this.brandWebsiteInfo,
+    this.idx,
+    this.shareAdTrack,
+    this.favoriteAdTrack,
+    this.webAdTrack,
+    this.date,
+    this.promotion,
+    this.label,
+    this.labelList,
+    this.descriptionEditor,
+    this.collected,
+    this.reallyCollected,
+    this.played,
+    this.subtitles,
+    this.lastViewTime,
+    this.playlists,
+    this.src,
+    this.recallSource,
+    this.content,
+    this.header,
+    this.text,
+  });
+
+  factory ContentInfo.fromJson(Map<String, dynamic> jsonRes) {
+    if (jsonRes == null) {
+      return null;
+    }
+
+    final List<TagsInfo> tags = jsonRes['tags'] is List ? <TagsInfo>[] : null;
+    if (tags != null) {
+      for (final dynamic item in jsonRes['tags']) {
+        if (item != null) {
+          tags.add(TagsInfo.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+
+    final List<PlayInfo> playInfo =
+        jsonRes['playInfo'] is List ? <PlayInfo>[] : null;
+    if (playInfo != null) {
+      for (final dynamic item in jsonRes['playInfo']) {
+        if (item != null) {
+          playInfo.add(PlayInfo.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+
+    final List<Object> labelList =
+        jsonRes['labelList'] is List ? <Object>[] : null;
+    if (labelList != null) {
+      for (final dynamic item in jsonRes['labelList']) {
+        if (item != null) {
+          labelList.add(asT<Object>(item));
+        }
+      }
+    }
+
+    final List<Object> subtitles =
+        jsonRes['subtitles'] is List ? <Object>[] : null;
+    if (subtitles != null) {
+      for (final dynamic item in jsonRes['subtitles']) {
+        if (item != null) {
+          subtitles.add(asT<Object>(item));
+        }
+      }
+    }
+    return ContentInfo(
+      dataType: asT<String>(jsonRes['dataType']),
+      id: asT<int>(jsonRes['id']),
+      title: asT<String>(jsonRes['title']),
+      description: asT<String>(jsonRes['description']),
+      library: asT<String>(jsonRes['library']),
+      tags: tags,
+      consumption: ConsumptionInfo.fromJson(
+          asT<Map<String, dynamic>>(jsonRes['consumption'])),
+      resourceType: asT<String>(jsonRes['resourceType']),
+      slogan: asT<String>(jsonRes['slogan']),
+      provider:
+          ProviderInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['provider'])),
+      category: asT<String>(jsonRes['category']),
+      author: AuthorInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['author'])),
+      cover: CoverInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['cover'])),
+      playUrl: asT<String>(jsonRes['playUrl']),
+      thumbPlayUrl: asT<Object>(jsonRes['thumbPlayUrl']),
+      duration: asT<int>(jsonRes['duration']),
+      webUrl: WebUrlInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['webUrl'])),
+      releaseTime: asT<int>(jsonRes['releaseTime']),
+      playInfo: playInfo,
+      campaign: asT<Object>(jsonRes['campaign']),
+      waterMarks: asT<Object>(jsonRes['waterMarks']),
+      ad: asT<bool>(jsonRes['ad']),
+      adTrack: asT<Object>(jsonRes['adTrack']),
+      type: asT<String>(jsonRes['type']),
+      titlePgc: asT<Object>(jsonRes['titlePgc']),
+      descriptionPgc: asT<Object>(jsonRes['descriptionPgc']),
+      remark: asT<Object>(jsonRes['remark']),
+      ifLimitVideo: asT<bool>(jsonRes['ifLimitVideo']),
+      searchWeight: asT<int>(jsonRes['searchWeight']),
+      brandWebsiteInfo: asT<Object>(jsonRes['brandWebsiteInfo']),
+      idx: asT<int>(jsonRes['idx']),
+      shareAdTrack: asT<Object>(jsonRes['shareAdTrack']),
+      favoriteAdTrack: asT<Object>(jsonRes['favoriteAdTrack']),
+      webAdTrack: asT<Object>(jsonRes['webAdTrack']),
+      date: asT<int>(jsonRes['date']),
+      promotion: asT<Object>(jsonRes['promotion']),
+      label: asT<Object>(jsonRes['label']),
+      labelList: labelList,
+      descriptionEditor: asT<String>(jsonRes['descriptionEditor']),
+      collected: asT<bool>(jsonRes['collected']),
+      reallyCollected: asT<bool>(jsonRes['reallyCollected']),
+      played: asT<bool>(jsonRes['played']),
+      subtitles: subtitles,
+      lastViewTime: asT<Object>(jsonRes['lastViewTime']),
+      playlists: asT<Object>(jsonRes['playlists']),
+      src: asT<int>(jsonRes['src']),
+      recallSource: asT<String>(jsonRes['recallSource']),
+      content: Content.fromJson(asT<Map<String, dynamic>>(jsonRes['content'])),
+      header: Header.fromJson(asT<Map<String, dynamic>>(jsonRes['header'])),
+      text: asT<String>(jsonRes['text']),
+    );
+  }
+
+  String dataType;
+  int id;
+  String title;
+  String description;
+  String library;
+  List<TagsInfo> tags;
+  ConsumptionInfo consumption;
+  String resourceType;
+  String slogan;
+  ProviderInfo provider;
+  String category;
+  AuthorInfo author;
+  CoverInfo cover;
+  String playUrl;
+  Object thumbPlayUrl;
+  int duration;
+  WebUrlInfo webUrl;
+  int releaseTime;
+  List<PlayInfo> playInfo;
+  Object campaign;
+  Object waterMarks;
+  bool ad;
+  Object adTrack;
+  String type;
+  Object titlePgc;
+  Object descriptionPgc;
+  Object remark;
+  bool ifLimitVideo;
+  int searchWeight;
+  Object brandWebsiteInfo;
+  int idx;
+  Object shareAdTrack;
+  Object favoriteAdTrack;
+  Object webAdTrack;
+  int date;
+  Object promotion;
+  Object label;
+  List<Object> labelList;
+  String descriptionEditor;
+  bool collected;
+  bool reallyCollected;
+  bool played;
+  List<Object> subtitles;
+  Object lastViewTime;
+  Object playlists;
+  int src;
+  String recallSource;
+  Content content;
+  Header header;
+  String text;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'dataType': dataType,
+        'id': id,
+        'title': title,
+        'description': description,
+        'library': library,
+        'tags': tags,
+        'consumption': consumption,
+        'resourceType': resourceType,
+        'slogan': slogan,
+        'provider': provider,
+        'category': category,
+        'author': author,
+        'cover': cover,
+        'playUrl': playUrl,
+        'thumbPlayUrl': thumbPlayUrl,
+        'duration': duration,
+        'webUrl': webUrl,
+        'releaseTime': releaseTime,
+        'playInfo': playInfo,
+        'campaign': campaign,
+        'waterMarks': waterMarks,
+        'ad': ad,
+        'adTrack': adTrack,
+        'type': type,
+        'titlePgc': titlePgc,
+        'descriptionPgc': descriptionPgc,
+        'remark': remark,
+        'ifLimitVideo': ifLimitVideo,
+        'searchWeight': searchWeight,
+        'brandWebsiteInfo': brandWebsiteInfo,
+        'idx': idx,
+        'shareAdTrack': shareAdTrack,
+        'favoriteAdTrack': favoriteAdTrack,
+        'webAdTrack': webAdTrack,
+        'date': date,
+        'promotion': promotion,
+        'label': label,
+        'labelList': labelList,
+        'descriptionEditor': descriptionEditor,
+        'collected': collected,
+        'reallyCollected': reallyCollected,
+        'played': played,
+        'subtitles': subtitles,
+        'lastViewTime': lastViewTime,
+        'playlists': playlists,
+        'src': src,
+        'recallSource': recallSource,
+        'content': content,
+        'text': text,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class TagsInfo {
+  TagsInfo({
+    this.id,
+    this.name,
+    this.actionUrl,
+    this.adTrack,
+    this.desc,
+    this.bgPicture,
+    this.headerImage,
+    this.tagRecType,
+    this.childTagList,
+    this.childTagIdList,
+    this.haveReward,
+    this.ifNewest,
+    this.newestEndTime,
+    this.communityIndex,
+  });
+
+  factory TagsInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : TagsInfo(
+          id: asT<int>(jsonRes['id']),
+          name: asT<String>(jsonRes['name']),
+          actionUrl: asT<String>(jsonRes['actionUrl']),
+          adTrack: asT<Object>(jsonRes['adTrack']),
+          desc: asT<Object>(jsonRes['desc']),
+          bgPicture: asT<String>(jsonRes['bgPicture']),
+          headerImage: asT<String>(jsonRes['headerImage']),
+          tagRecType: asT<String>(jsonRes['tagRecType']),
+          childTagList: asT<Object>(jsonRes['childTagList']),
+          childTagIdList: asT<Object>(jsonRes['childTagIdList']),
+          haveReward: asT<bool>(jsonRes['haveReward']),
+          ifNewest: asT<bool>(jsonRes['ifNewest']),
+          newestEndTime: asT<Object>(jsonRes['newestEndTime']),
+          communityIndex: asT<int>(jsonRes['communityIndex']),
+        );
+
+  int id;
+  String name;
+  String actionUrl;
+  Object adTrack;
+  Object desc;
+  String bgPicture;
+  String headerImage;
+  String tagRecType;
+  Object childTagList;
+  Object childTagIdList;
+  bool haveReward;
+  bool ifNewest;
+  Object newestEndTime;
+  int communityIndex;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'name': name,
+        'actionUrl': actionUrl,
+        'adTrack': adTrack,
+        'desc': desc,
+        'bgPicture': bgPicture,
+        'headerImage': headerImage,
+        'tagRecType': tagRecType,
+        'childTagList': childTagList,
+        'childTagIdList': childTagIdList,
+        'haveReward': haveReward,
+        'ifNewest': ifNewest,
+        'newestEndTime': newestEndTime,
+        'communityIndex': communityIndex,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class ConsumptionInfo {
+  ConsumptionInfo({
+    this.collectionCount,
+    this.shareCount,
+    this.replyCount,
+    this.realCollectionCount,
+  });
+
+  factory ConsumptionInfo.fromJson(Map<String, dynamic> jsonRes) =>
+      jsonRes == null
+          ? null
+          : ConsumptionInfo(
+              collectionCount: asT<int>(jsonRes['collectionCount']),
+              shareCount: asT<int>(jsonRes['shareCount']),
+              replyCount: asT<int>(jsonRes['replyCount']),
+              realCollectionCount: asT<int>(jsonRes['realCollectionCount']),
+            );
+
+  int collectionCount;
+  int shareCount;
+  int replyCount;
+  int realCollectionCount;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'collectionCount': collectionCount,
+        'shareCount': shareCount,
+        'replyCount': replyCount,
+        'realCollectionCount': realCollectionCount,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class ProviderInfo {
+  ProviderInfo({
+    this.name,
+    this.alias,
+    this.icon,
+  });
+
+  factory ProviderInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : ProviderInfo(
+          name: asT<String>(jsonRes['name']),
+          alias: asT<String>(jsonRes['alias']),
+          icon: asT<String>(jsonRes['icon']),
+        );
+
+  String name;
+  String alias;
+  String icon;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
+        'alias': alias,
+        'icon': icon,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class AuthorInfo {
+  AuthorInfo({
+    this.id,
+    this.icon,
+    this.name,
+    this.description,
+    this.link,
+    this.latestReleaseTime,
+    this.videoNum,
+    this.adTrack,
+    this.follow,
+    this.shield,
+    this.approvedNotReadyVideoCount,
+    this.ifPgc,
+    this.recSort,
+    this.expert,
+  });
+
+  factory AuthorInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : AuthorInfo(
+          id: asT<int>(jsonRes['id']),
+          icon: asT<String>(jsonRes['icon']),
+          name: asT<String>(jsonRes['name']),
+          description: asT<String>(jsonRes['description']),
+          link: asT<String>(jsonRes['link']),
+          latestReleaseTime: asT<int>(jsonRes['latestReleaseTime']),
+          videoNum: asT<int>(jsonRes['videoNum']),
+          adTrack: asT<Object>(jsonRes['adTrack']),
+          follow:
+              FollowInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['follow'])),
+          shield:
+              ShieldInfo.fromJson(asT<Map<String, dynamic>>(jsonRes['shield'])),
+          approvedNotReadyVideoCount:
+              asT<int>(jsonRes['approvedNotReadyVideoCount']),
+          ifPgc: asT<bool>(jsonRes['ifPgc']),
+          recSort: asT<int>(jsonRes['recSort']),
+          expert: asT<bool>(jsonRes['expert']),
+        );
+
+  int id;
+  String icon;
+  String name;
+  String description;
+  String link;
+  int latestReleaseTime;
+  int videoNum;
+  Object adTrack;
+  FollowInfo follow;
+  ShieldInfo shield;
+  int approvedNotReadyVideoCount;
+  bool ifPgc;
+  int recSort;
+  bool expert;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'icon': icon,
+        'name': name,
+        'description': description,
+        'link': link,
+        'latestReleaseTime': latestReleaseTime,
+        'videoNum': videoNum,
+        'adTrack': adTrack,
+        'follow': follow,
+        'shield': shield,
+        'approvedNotReadyVideoCount': approvedNotReadyVideoCount,
+        'ifPgc': ifPgc,
+        'recSort': recSort,
+        'expert': expert,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class FollowInfo {
+  FollowInfo({
+    this.itemType,
+    this.itemId,
+    this.followed,
+  });
+
+  factory FollowInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : FollowInfo(
+          itemType: asT<String>(jsonRes['itemType']),
+          itemId: asT<int>(jsonRes['itemId']),
+          followed: asT<bool>(jsonRes['followed']),
+        );
+
+  String itemType;
+  int itemId;
+  bool followed;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'itemType': itemType,
+        'itemId': itemId,
+        'followed': followed,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class ShieldInfo {
+  ShieldInfo({
+    this.itemType,
+    this.itemId,
+    this.shielded,
+  });
+
+  factory ShieldInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : ShieldInfo(
+          itemType: asT<String>(jsonRes['itemType']),
+          itemId: asT<int>(jsonRes['itemId']),
+          shielded: asT<bool>(jsonRes['shielded']),
+        );
+
+  String itemType;
+  int itemId;
+  bool shielded;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'itemType': itemType,
+        'itemId': itemId,
+        'shielded': shielded,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class CoverInfo {
+  CoverInfo({
+    this.feed,
+    this.detail,
+    this.blurred,
+    this.sharing,
+    this.homepage,
+  });
+
+  factory CoverInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : CoverInfo(
+          feed: asT<String>(jsonRes['feed']),
+          detail: asT<String>(jsonRes['detail']),
+          blurred: asT<String>(jsonRes['blurred']),
+          sharing: asT<Object>(jsonRes['sharing']),
+          homepage: asT<String>(jsonRes['homepage']),
+        );
+
+  String feed;
+  String detail;
+  String blurred;
+  Object sharing;
+  String homepage;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'feed': feed,
+        'detail': detail,
+        'blurred': blurred,
+        'sharing': sharing,
+        'homepage': homepage,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class WebUrlInfo {
+  WebUrlInfo({
+    this.raw,
+    this.forWeibo,
+  });
+
+  factory WebUrlInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : WebUrlInfo(
+          raw: asT<String>(jsonRes['raw']),
+          forWeibo: asT<String>(jsonRes['forWeibo']),
+        );
+
+  String raw;
+  String forWeibo;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'raw': raw,
+        'forWeibo': forWeibo,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class PlayInfo {
+  PlayInfo({
+    this.height,
+    this.width,
+    this.urlList,
+    this.name,
+    this.type,
+    this.url,
+  });
+
+  factory PlayInfo.fromJson(Map<String, dynamic> jsonRes) {
+    if (jsonRes == null) {
+      return null;
+    }
+
+    final List<UrlListInfo> urlList =
+        jsonRes['urlList'] is List ? <UrlListInfo>[] : null;
+    if (urlList != null) {
+      for (final dynamic item in jsonRes['urlList']) {
+        if (item != null) {
+          urlList.add(UrlListInfo.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+    return PlayInfo(
+      height: asT<int>(jsonRes['height']),
+      width: asT<int>(jsonRes['width']),
+      urlList: urlList,
+      name: asT<String>(jsonRes['name']),
+      type: asT<String>(jsonRes['type']),
+      url: asT<String>(jsonRes['url']),
+    );
+  }
+
+  int height;
+  int width;
+  List<UrlListInfo> urlList;
+  String name;
+  String type;
+  String url;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'height': height,
+        'width': width,
+        'urlList': urlList,
+        'name': name,
+        'type': type,
+        'url': url,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class UrlListInfo {
+  UrlListInfo({
+    this.name,
+    this.url,
+    this.size,
+  });
+
+  factory UrlListInfo.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : UrlListInfo(
+          name: asT<String>(jsonRes['name']),
+          url: asT<String>(jsonRes['url']),
+          size: asT<int>(jsonRes['size']),
+        );
+
+  String name;
+  String url;
+  int size;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
+        'url': url,
+        'size': size,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class TopIssue {
+  TopIssue({
+    this.type,
+    this.data,
+    this.tag,
+    this.id,
+    this.adIndex,
+  });
+
+  factory TopIssue.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : TopIssue(
+          type: asT<String>(jsonRes['type']),
+          data: TopIssueModel.fromJson(
+              asT<Map<String, dynamic>>(jsonRes['data'])),
+          tag: asT<Object>(jsonRes['tag']),
+          id: asT<int>(jsonRes['id']),
+          adIndex: asT<int>(jsonRes['adIndex']),
+        );
+
+  String type;
+  TopIssueModel data;
+  Object tag;
+  int id;
+  int adIndex;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'type': type,
+        'data': data,
+        'tag': tag,
+        'id': id,
+        'adIndex': adIndex,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class TopIssueModel {
+  TopIssueModel({
+    this.dataType,
+    this.itemList,
+    this.count,
+  });
+
+  factory TopIssueModel.fromJson(Map<String, dynamic> jsonRes) {
+    if (jsonRes == null) {
+      return null;
+    }
+
+    final List<Content> itemList =
+        jsonRes['itemList'] is List ? <Content>[] : null;
+    if (itemList != null) {
+      for (final dynamic item in jsonRes['itemList']) {
+        if (item != null) {
+          itemList.add(Content.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+    return TopIssueModel(
+      dataType: asT<String>(jsonRes['dataType']),
+      itemList: itemList,
+      count: asT<int>(jsonRes['count']),
+    );
+  }
+
+  String dataType;
+  List<Content> itemList;
+  int count;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'dataType': dataType,
+        'itemList': itemList,
+        'count': count,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class TagsModel {
+  TagsModel({
+    this.id,
+    this.name,
+    this.actionUrl,
+    this.adTrack,
+    this.desc,
+    this.bgPicture,
+    this.headerImage,
+    this.tagRecType,
+    this.childTagList,
+    this.childTagIdList,
+    this.haveReward,
+    this.ifNewest,
+    this.newestEndTime,
+    this.communityIndex,
+  });
+
+  factory TagsModel.fromJson(Map<String, dynamic> jsonRes) => jsonRes == null
+      ? null
+      : TagsModel(
+          id: asT<int>(jsonRes['id']),
+          name: asT<String>(jsonRes['name']),
+          actionUrl: asT<String>(jsonRes['actionUrl']),
+          adTrack: asT<Object>(jsonRes['adTrack']),
+          desc: asT<String>(jsonRes['desc']),
+          bgPicture: asT<String>(jsonRes['bgPicture']),
+          headerImage: asT<String>(jsonRes['headerImage']),
+          tagRecType: asT<String>(jsonRes['tagRecType']),
+          childTagList: asT<Object>(jsonRes['childTagList']),
+          childTagIdList: asT<Object>(jsonRes['childTagIdList']),
+          haveReward: asT<bool>(jsonRes['haveReward']),
+          ifNewest: asT<bool>(jsonRes['ifNewest']),
+          newestEndTime: asT<Object>(jsonRes['newestEndTime']),
+          communityIndex: asT<int>(jsonRes['communityIndex']),
+        );
+
+  int id;
+  String name;
+  String actionUrl;
+  Object adTrack;
+  String desc;
+  String bgPicture;
+  String headerImage;
+  String tagRecType;
+  Object childTagList;
+  Object childTagIdList;
+  bool haveReward;
+  bool ifNewest;
+  Object newestEndTime;
+  int communityIndex;
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'name': name,
+        'actionUrl': actionUrl,
+        'adTrack': adTrack,
+        'desc': desc,
+        'bgPicture': bgPicture,
+        'headerImage': headerImage,
+        'tagRecType': tagRecType,
+        'childTagList': childTagList,
+        'childTagIdList': childTagIdList,
+        'haveReward': haveReward,
+        'ifNewest': ifNewest,
+        'newestEndTime': newestEndTime,
+        'communityIndex': communityIndex,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}

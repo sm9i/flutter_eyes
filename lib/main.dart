@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           theme: value.theme,
           navigatorKey: globalKey,
           debugShowCheckedModeBanner: false,
-          builder: (_, __) {
+          builder: (BuildContext context, Widget child) {
             ScreenUtil.init(
               context,
               allowFontScaling: false,

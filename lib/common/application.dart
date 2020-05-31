@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_eyes/utils/net/net_util.dart';
 import 'package:flutter_eyes/utils/sp_util.dart';
 
-const bool _isDebug = false;
+const bool _isDebug = true;
 GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
 
 Future<void> initApp() async {
