@@ -150,7 +150,7 @@ class Header {
       : Header(
           id: asT<int>(jsonRes['id']),
           title: asT<String>(jsonRes['title']),
-          font: asT<Object>(jsonRes['font']),
+          font: asT<String>(jsonRes['font']),
           subTitle: asT<Object>(jsonRes['subTitle']),
           subTitleFont: asT<Object>(jsonRes['subTitleFont']),
           textAlign: asT<String>(jsonRes['textAlign']),
@@ -168,7 +168,7 @@ class Header {
 
   int id;
   String title;
-  Object font;
+  String font;
   Object subTitle;
   Object subTitleFont;
   String textAlign;
@@ -260,6 +260,8 @@ class ContentInfo {
     this.content,
     this.header,
     this.text,
+    this.itemList,
+    this.image,
   });
 
   factory ContentInfo.fromJson(Map<String, dynamic> jsonRes) {
@@ -272,6 +274,15 @@ class ContentInfo {
       for (final dynamic item in jsonRes['tags']) {
         if (item != null) {
           tags.add(TagsInfo.fromJson(asT<Map<String, dynamic>>(item)));
+        }
+      }
+    }
+    final List<Content> itemList =
+        jsonRes['itemList'] is List ? <Content>[] : null;
+    if (itemList != null) {
+      for (final dynamic item in jsonRes['itemList']) {
+        if (item != null) {
+          itemList.add(Content.fromJson(asT<Map<String, dynamic>>(item)));
         }
       }
     }
@@ -305,6 +316,7 @@ class ContentInfo {
         }
       }
     }
+
     return ContentInfo(
       dataType: asT<String>(jsonRes['dataType']),
       id: asT<int>(jsonRes['id']),
@@ -358,6 +370,8 @@ class ContentInfo {
       content: Content.fromJson(asT<Map<String, dynamic>>(jsonRes['content'])),
       header: Header.fromJson(asT<Map<String, dynamic>>(jsonRes['header'])),
       text: asT<String>(jsonRes['text']),
+      image: asT<String>(jsonRes['image']),
+      itemList: itemList,
     );
   }
 
@@ -411,6 +425,8 @@ class ContentInfo {
   Content content;
   Header header;
   String text;
+  String image;
+  List<Content> itemList;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'dataType': dataType,

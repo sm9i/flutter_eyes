@@ -5,6 +5,7 @@ import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/theme_util.dart';
 import 'package:flutter_eyes/utils/utils.dart';
+import 'package:flutter_eyes/widget/button/throttle_btn.dart';
 
 ///video页面的widget
 ///-[VideoWidget] 视频播放widget
@@ -14,12 +15,16 @@ import 'package:flutter_eyes/utils/utils.dart';
 
 ///
 class VideoWidget extends StatelessWidget {
+  const VideoWidget({Key key, this.contentInfo}) : super(key: key);
+  final ContentInfo contentInfo;
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.7,
       child: Container(
         color: Colors.red,
+        child: Center(child: Text(contentInfo?.playUrl ?? '')),
       ),
     );
   }
@@ -129,6 +134,7 @@ class VideoAuthorWidget extends StatelessWidget {
             children: <Widget>[
               SizedBox(
                 width: setWidth(90),
+                height: setWidth(90),
                 child: ClipOval(
                   child: Glide.loadImage(authorInfo.icon),
                 ),
@@ -185,8 +191,11 @@ class VideoAuthorWidget extends StatelessWidget {
 
 ///相关视频的item
 class VideoRelatedListWidget extends StatelessWidget {
-  const VideoRelatedListWidget({Key key, this.relatedVideo}) : super(key: key);
+  const VideoRelatedListWidget(
+      {Key key, @required this.relatedVideo, @required this.onRelatedTap})
+      : super(key: key);
   final List<Content> relatedVideo;
+  final void Function(Content content) onRelatedTap;
 
   @override
   Widget build(BuildContext context) {
@@ -220,64 +229,69 @@ class VideoRelatedListWidget extends StatelessWidget {
   }
 
   Widget videoSmallCardWidget(Content content) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(setWidth(30)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 13 / 7,
-                  child: Glide.loadImage(
-                    content.data.cover.feed,
-                    fit: BoxFit.cover,
+    return Throttle(
+      onTap: () {
+        onRelatedTap(content);
+      },
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(setWidth(30)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 13 / 7,
+                    child: Glide.loadImage(
+                      content.data.cover.feed,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  flex: 4,
                 ),
-                flex: 4,
-              ),
-              SizedBox(width: setWidth(15)),
-              Expanded(
-                flex: 5,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: setHeight(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(
-                        content?.data?.title ?? '',
-                        style: TextStyle(
-                            fontFamily: FontType.bold,
-                            color: Colors.white,
-                            fontSize: setSp(30)),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: setHeight(10)),
-                        child: Text(
-                          '${content?.data?.category ?? ''}   /   ${getElapseTimeForShow(content?.data?.duration ?? 0)}',
-                          maxLines: 1,
+                SizedBox(width: setWidth(15)),
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: setHeight(10)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text(
+                          content?.data?.title ?? '',
                           style: TextStyle(
-                            color: Colors.white,
+                              fontFamily: FontType.bold,
+                              color: Colors.white,
+                              fontSize: setSp(30)),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: setHeight(10)),
+                          child: Text(
+                            '${content?.data?.category ?? ''}   /   ${getElapseTimeForShow(content?.data?.duration ?? 0)}',
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-        Container(height: 1, color: ThemeUtil.dividerColor),
-      ],
+          Container(height: 1, color: ThemeUtil.dividerColor),
+        ],
+      ),
     );
   }
 }
-
+///相关视频结束
 class VideoEndWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

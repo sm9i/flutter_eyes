@@ -65,7 +65,7 @@ class _VideoPageState extends State<VideoPage> {
           child: Selector<VideoProvider, ContentInfo>(
             builder: (_, ContentInfo value, __) => Column(
               children: <Widget>[
-                VideoWidget(),
+                VideoWidget(contentInfo: value),
                 //视频详情
                 Expanded(
                   child: Stack(
@@ -94,7 +94,10 @@ class _VideoPageState extends State<VideoPage> {
                               selector: (_, VideoProvider provider) =>
                                   provider.relatedVideo,
                               builder: (_, List<Content> value, __) =>
-                                  VideoRelatedListWidget(relatedVideo: value),
+                                  VideoRelatedListWidget(
+                                relatedVideo: value,
+                                onRelatedTap: _videoProvider.onRelatedTap,
+                              ),
                             ),
                             VideoEndWidget(),
                           ],

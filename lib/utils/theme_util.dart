@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'no_splash.dart';
+
 // ignore: avoid_classes_with_only_static_members
 class ThemeUtil {
   static ThemeData get dartTheme => ThemeData.dark().copyWith(
         bottomAppBarColor: Colors.black54,
+        splashFactory: const NoSplashFactory(),
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             headline1: TextStyle(
@@ -27,6 +30,9 @@ class ThemeUtil {
 
   static ThemeData get lightTheme => ThemeData.light().copyWith(
         bottomAppBarColor: Colors.white70,
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        splashFactory: const NoSplashFactory(),
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             headline1: TextStyle(

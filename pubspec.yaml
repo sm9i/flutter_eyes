@@ -23,8 +23,7 @@ dependencies:
   provider: 4.1.2
   #下拉间监听
   pull_to_refresh_notification: 0.3.4
-  #轮播
-  carousel_slider: 2.1.0
+
 
 
 dev_dependencies:

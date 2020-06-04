@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_eyes/model/model.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
+import 'package:flutter_eyes/widget/banner_widget.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
 class HomeHeadWidget extends StatefulWidget {
@@ -22,21 +22,20 @@ class _HomeHeadWidgetState extends State<HomeHeadWidget> {
 
   Widget _builder(PullToRefreshScrollNotificationInfo info) {
     final double height = min(info?.dragOffset ?? 0.0, 100.0) +
-        MediaQuery.of(context).size.height * 0.4;
+        MediaQuery.of(context).size.height * 0.3;
     final double width = MediaQuery.of(context).size.width;
     final double asp = width / (height - MediaQuery.of(context).padding.top);
     return Container(
       height: height,
       width: double.infinity,
-      child: CarouselSlider(
-        items: widget.topIssue.data.itemList
-            .map((Content m) => Glide.loadImage(m.data.cover.feed))
-            .toList(),
-        options: CarouselOptions(
-          autoPlay: true,
-          viewportFraction: 1.0,
-          aspectRatio: width / height,
-        ),
+      child: BannerWidget(
+        itemCount: widget.topIssue.data.itemList.length,
+        itemBuilder: (_, int index) {
+          return Glide.loadImage(
+            widget.topIssue.data.itemList[index].data.cover.feed,
+            fit: BoxFit.cover,
+          );
+        },
       ),
       color: Colors.white,
     );

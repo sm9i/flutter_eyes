@@ -8,15 +8,13 @@ import 'package:flutter_eyes/utils/net/net_util.dart';
 ///[videosInfo] 所有视频的列表
 ///[defaultIndex] 当前播放的index
 class VideoProvider extends ChangeNotifier {
-  VideoProvider(this._currentInfo, this._videosInfo, this._defaultIndex){
-    print(" provider buidl");
-  }
+  VideoProvider(this._currentInfo, this._videosInfo, this._defaultIndex);
 
-  final ContentInfo _currentInfo;
+  ContentInfo _currentInfo;
   final List<Content> _videosInfo;
   final int _defaultIndex;
 
-  List<Content> _relatedVideo = [];
+  List<Content> _relatedVideo = <Content>[];
 
   //下一个视频
   void nextVideo() {}
@@ -33,6 +31,12 @@ class VideoProvider extends ChangeNotifier {
           .itemList,
     );
     notifyListeners();
+  }
+
+  ///相关视频点击后
+  void onRelatedTap(Content content) {
+    _currentInfo = content.data;
+    getRelatedVideoInfo();
   }
 
   ContentInfo get currentInfo => _currentInfo;

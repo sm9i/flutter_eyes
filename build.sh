@@ -1,1 +1,1 @@
-flutter build apk --release --target-platform android-arm
+flutter build apk --release --split-per-abi

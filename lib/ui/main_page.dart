@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_eyes/ui/feed/feed_page.dart';
 import 'package:flutter_eyes/ui/profile/profile_page.dart';
 import 'package:flutter_eyes/widget/bottom_bar/bottom_bar_widget.dart';
 
+import 'follow/follow_page.dart';
 import 'home/home_page.dart';
 
 class MainPage extends StatelessWidget {
-  final PageController _pageController = new PageController(
-    initialPage: 0,
-  );
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +17,12 @@ class MainPage extends StatelessWidget {
           Expanded(
             child: PageView(
               controller: _pageController,
-              physics:
-                  NeverScrollableScrollPhysics(parent: ClampingScrollPhysics()),
+              physics: const NeverScrollableScrollPhysics(
+                  parent: ClampingScrollPhysics()),
               children: <Widget>[
                 HomePage(),
-                Container(
-                  child: Center(child: Text('2')),
-                ),
-                Container(
-                  child: Center(child: Text('3')),
-                ),
+                FeedPage(),
+                FollowPage(),
                 ProfilePage(),
               ],
             ),

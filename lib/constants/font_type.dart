@@ -1,8 +1,8 @@
 class FontType {
   FontType._();
 
-  static final String normal = "Normal";
-  static final String bold = "Bold";
-  static final String future = "Future";
-  static final String lobster = "Lobster";
+  static const String normal = 'Normal';
+  static const String bold = 'Bold';
+  static const String future = 'Future';
+  static const String lobster = 'Lobster';
 }

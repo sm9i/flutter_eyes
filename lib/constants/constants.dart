@@ -1,3 +1,5 @@
+import 'package:flutter_eyes/ui/feed/feed_page.dart';
+
 class Constants {
   Constants._();
 
@@ -24,4 +26,10 @@ class Constants {
 
   static const String messageNetError = '网络错误\n点击屏幕重试';
   static const String messageEmpty = '没有数据\n点击屏幕重试';
+
+  static final List<TabBarInfo> tabs = <TabBarInfo>[
+    TabBarInfo('热门', 'http://baobab.kaiyanapp.com/api/v4/discovery/hot'),
+    TabBarInfo('分类', 'http://baobab.kaiyanapp.com/api/v4/discovery/category'),
+    TabBarInfo('作者', 'http://baobab.kaiyanapp.com/api/v4/pgcs/all'),
+  ];
 }

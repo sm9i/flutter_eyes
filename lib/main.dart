@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'common/application.dart';
 import 'ui/splash/splash_page.dart';
 
-void main() async {
+Future<void> main() async {
   final SystemUiOverlayStyle systemUiOverlayStyle =
       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);

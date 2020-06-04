@@ -4,7 +4,7 @@ import 'package:flutter_eyes/utils/theme_util.dart';
 class AppProvider extends ChangeNotifier {
   AppProvider() {
     //初始化
-    this._currentTheme = ThemeUtil.lightTheme;
+    _currentTheme = ThemeUtil.lightTheme;
   }
 
   //是否是暗色
@@ -13,9 +13,11 @@ class AppProvider extends ChangeNotifier {
   ThemeData _currentTheme;
 
   void changeTheme(bool isDark) {
-    if (this.isDark == isDark) return;
-    this._isDark = isDark;
-    this._currentTheme = isDark ? ThemeUtil.dartTheme : ThemeUtil.lightTheme;
+    if (this.isDark == isDark) {
+      return;
+    }
+    _isDark = isDark;
+    _currentTheme = isDark ? ThemeUtil.dartTheme : ThemeUtil.lightTheme;
     notifyListeners();
   }
 

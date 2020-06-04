@@ -9,6 +9,6 @@ ChangeNotifierProvider<T> buildProvider<T extends ChangeNotifier>(T value) {
 
 List<SingleChildWidget> get providers => _providers;
 
-final _providers = [
+final List<ChangeNotifierProvider<AppProvider>> _providers = [
   buildProvider<AppProvider>(AppProvider()),
 ];

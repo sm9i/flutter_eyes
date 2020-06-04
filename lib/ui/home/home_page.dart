@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_eyes/common/application.dart';
+import 'package:flutter_eyes/constants/font_type.dart';
 import 'package:flutter_eyes/model/model.dart';
 import 'package:flutter_eyes/ui/home/provider/home_provider.dart';
 import 'package:flutter_eyes/ui/video/video_page.dart';
+import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/widget/button/throttle_btn.dart';
 import 'package:flutter_eyes/widget/home/home_head_widget.dart';
-import 'package:flutter_eyes/widget/home/home_item_widget.dart';
+import 'package:flutter_eyes/widget/item_widget.dart';
 import 'package:flutter_eyes/widget/status/provider_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
@@ -48,6 +50,22 @@ class _HomePageState extends State<HomePage>
                     topIssue: value.topIssue,
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: setHeight(35),
+                    ),
+                    alignment: Alignment.center,
+                    child:  Text(
+                      '更多开眼编辑精选 >',
+                      style: TextStyle(
+                        letterSpacing: 2.5,
+                        color: Colors.black87,
+                        fontFamily: FontType.normal,
+                      ),
+                    ),
+                  ),
+                ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (_, int index) => Throttle(
@@ -55,16 +73,15 @@ class _HomePageState extends State<HomePage>
                         globalKey.currentState.push<void>(
                           MaterialPageRoute<void>(
                             builder: (_) => VideoPage(
-                              currentInfo: value.itemList[index].data.content.data,
+                              currentInfo:
+                                  value.itemList[index].data.content.data,
                               videosInfo: value.itemList,
                               defaultIndex: index,
                             ),
                           ),
                         );
                       },
-                      child: HomeItemWidget(
-                        contentInfo: value.itemList[index].data,
-                      ),
+                      child: convertWidget(value.itemList[index]),
                     ),
                     childCount: value.itemList.length,
                   ),
