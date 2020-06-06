@@ -4,9 +4,11 @@ import 'package:flutter_eyes/model/model.dart';
 import 'package:flutter_eyes/utils/image_util.dart';
 import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/utils.dart';
+import 'package:flutter_eyes/widget/widgets.dart';
 
 import 'item_widget.dart';
 
+///头像 标题 简洁 时间
 class ItemHeaderWidget extends StatelessWidget {
   const ItemHeaderWidget({Key key, this.header, this.isHeader = true})
       : super(key: key);
@@ -25,7 +27,6 @@ class ItemHeaderWidget extends StatelessWidget {
           ),
           child: headerWidget(),
         ),
-
       ],
     );
   }
@@ -97,6 +98,53 @@ class ItemHeaderWidget extends StatelessWidget {
           color: const Color(0xff757575),
           fontFamily: FontType.normal,
         ),
+      ),
+    );
+  }
+}
+
+///分类  标题 简洁 关注
+class ItemSort extends StatelessWidget {
+  const ItemSort({Key key, this.header}) : super(key: key);
+  final Header header;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: setHeight(20),
+        horizontal: setWidth(30),
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+              child: Column(
+            children: <Widget>[
+              Text(
+                header?.title ?? '',
+                style: TextStyle(
+                  fontSize: setSp(30),
+                  fontFamily: FontType.bold,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: setHeight(8)),
+              Text(
+                header?.subTitle ?? '',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: setSp(26),
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          )),
+          followWidget(
+            color: Colors.black87,
+          ),
+        ],
       ),
     );
   }

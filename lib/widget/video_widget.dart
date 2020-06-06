@@ -6,6 +6,7 @@ import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/theme_util.dart';
 import 'package:flutter_eyes/utils/utils.dart';
 import 'package:flutter_eyes/widget/button/throttle_btn.dart';
+import 'package:flutter_eyes/widget/widgets.dart';
 
 ///video页面的widget
 ///-[VideoWidget] 视频播放widget
@@ -166,20 +167,7 @@ class VideoAuthorWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(width: setWidth(20)),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(3)),
-                  border: Border.all(color: Colors.white),
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: setWidth(10),
-                  vertical: setHeight(5),
-                ),
-                child: Text(
-                  '+关注',
-                  style: TextStyle(color: Colors.white, fontSize: setSp(24)),
-                ),
-              ),
+              followWidget(),
             ],
           ),
         ),

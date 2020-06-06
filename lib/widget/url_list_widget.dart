@@ -37,6 +37,7 @@ class _UrlListWidgetState extends State<UrlListWidget>
           builder: (_, BaseInfo value, __) {
             return ListView.builder(
               padding: EdgeInsets.zero,
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (_, int index) =>
                   convertWidget(value.itemList[index]),
               itemCount: value.itemList.length,

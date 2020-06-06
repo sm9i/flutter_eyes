@@ -8,6 +8,7 @@ import 'package:flutter_eyes/utils/screens.dart';
 import 'package:flutter_eyes/utils/theme_util.dart';
 import 'package:flutter_eyes/utils/utils.dart';
 import 'package:flutter_eyes/widget/banner_widget.dart';
+import 'package:flutter_eyes/widget/indicator_view_pager.dart';
 
 import 'item_header_widget.dart';
 
@@ -22,6 +23,25 @@ Widget convertWidget(Content content) {
     return TextCardWidget(content: content, text: content?.data?.text ?? '');
   } else if (content.type == 'squareCardCollection') {
     return SquareCardCollectionWidget(content: content);
+  } else if (content.type == 'videoCollectionOfHorizontalScrollCard') {
+    return VideoCollectionOfHorizontalScrollCardWidget(content: content);
+  }
+}
+
+///横向分类页面
+class VideoCollectionOfHorizontalScrollCardWidget extends StatelessWidget {
+  const VideoCollectionOfHorizontalScrollCardWidget({Key key, this.content})
+      : super(key: key);
+  final Content content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ItemSort(header: content.data.header),
+        IndicatorViewPager(contents: content.data.itemList),
+      ],
+    );
   }
 }
 

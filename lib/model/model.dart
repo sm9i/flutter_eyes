@@ -151,7 +151,7 @@ class Header {
           id: asT<int>(jsonRes['id']),
           title: asT<String>(jsonRes['title']),
           font: asT<String>(jsonRes['font']),
-          subTitle: asT<Object>(jsonRes['subTitle']),
+          subTitle: asT<String>(jsonRes['subTitle']),
           subTitleFont: asT<Object>(jsonRes['subTitleFont']),
           textAlign: asT<String>(jsonRes['textAlign']),
           cover: asT<Object>(jsonRes['cover']),
@@ -169,7 +169,7 @@ class Header {
   int id;
   String title;
   String font;
-  Object subTitle;
+  String subTitle;
   Object subTitleFont;
   String textAlign;
   Object cover;
