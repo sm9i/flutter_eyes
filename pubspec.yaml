@@ -24,6 +24,7 @@ dependencies:
   #下拉间监听
   pull_to_refresh_notification: 0.3.4
   flutter_swiper: 1.1.6
+  extended_image: 0.9.0
 
 
 

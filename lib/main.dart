@@ -11,8 +11,10 @@ import 'common/application.dart';
 import 'ui/splash/splash_page.dart';
 
 Future<void> main() async {
-  final SystemUiOverlayStyle systemUiOverlayStyle =
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  final SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light);
+
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   WidgetsFlutterBinding.ensureInitialized();
   await initApp();

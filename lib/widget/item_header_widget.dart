@@ -9,24 +9,65 @@ import 'package:flutter_eyes/widget/widgets.dart';
 import 'item_widget.dart';
 
 ///头像 标题 简洁 时间
+///[isAuthor] 作者  头像 标题 简介 follow
 class ItemHeaderWidget extends StatelessWidget {
-  const ItemHeaderWidget({Key key, this.header, this.isHeader = true})
+  const ItemHeaderWidget({Key key, this.header, this.isAuthor = false})
       : super(key: key);
   final Header header;
-  final bool isHeader;
+  final bool isAuthor;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        divider,
+//        divider,
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: setWidth(20),
             vertical: setWidth(20),
           ),
-          child: headerWidget(),
+          child: isAuthor ? authorWidget() : headerWidget(),
         ),
+      ],
+    );
+  }
+
+  Widget authorWidget() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        iconWidget(),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: setWidth(10)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  header.title ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: setSp(28),
+                  ),
+                ),
+                SizedBox(height: setHeight(5)),
+                Text(
+                  header?.description ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: setSp(24),
+                    fontFamily: FontType.normal,
+                    color: const Color(0xff757575),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        followWidget(color: Colors.black87),
       ],
     );
   }
@@ -103,7 +144,7 @@ class ItemHeaderWidget extends StatelessWidget {
   }
 }
 
-///分类  标题 简洁 关注
+///分类  标题 简介 关注
 class ItemSort extends StatelessWidget {
   const ItemSort({Key key, this.header}) : super(key: key);
   final Header header;

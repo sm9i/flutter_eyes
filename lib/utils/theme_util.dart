@@ -30,7 +30,6 @@ class ThemeUtil {
 
   static ThemeData get lightTheme => ThemeData.light().copyWith(
         bottomAppBarColor: Colors.white70,
-        brightness: Brightness.light,
         primaryColor: Colors.white,
         splashFactory: const NoSplashFactory(),
         appBarTheme: AppBarTheme(

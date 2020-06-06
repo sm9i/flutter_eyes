@@ -14,7 +14,7 @@ import 'item_header_widget.dart';
 
 ///根据type判断返回固定widget
 Widget convertWidget(Content content) {
-//  print(content.type);
+  print(content.type);
   if (content.type == 'followCard') {
     return FollowItemWidget(contentInfo: content.data);
   } else if (content.type == 'horizontalScrollCard') {
@@ -25,6 +25,77 @@ Widget convertWidget(Content content) {
     return SquareCardCollectionWidget(content: content);
   } else if (content.type == 'videoCollectionOfHorizontalScrollCard') {
     return VideoCollectionOfHorizontalScrollCardWidget(content: content);
+  } else if (content.type == 'videoCollectionWithBrief') {
+    return VideoCollectionWithBriefWidget(content: content);
+  }
+}
+
+///作者 横向list
+class VideoCollectionWithBriefWidget extends StatelessWidget {
+  const VideoCollectionWithBriefWidget({Key key, this.content})
+      : super(key: key);
+  final Content content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ItemHeaderWidget(header: content.data.header, isAuthor: true),
+        AspectRatio(
+          aspectRatio: 16 / 10,
+          child: Container(
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(
+                horizontal: setWidth(20),
+                vertical: setHeight(10),
+              ),
+              itemBuilder: (_, int index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: Glide.loadImage(
+                          content.data.itemList[index].data.cover.feed),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: setHeight(10)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            content.data.itemList[index]?.data?.title ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: FontType.bold,
+                              fontSize: setSp(28),
+                            ),
+                          ),
+                          SizedBox(height: setHeight(5)),
+                          Text(
+                            '#${content.data.itemList[index]?.data?.category ?? ''}  /  ${getElapseTimeForShow(content.data.itemList[index]?.data?.duration ?? 0)}',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: FontType.normal,
+                              fontSize: setSp(24),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              },
+              separatorBuilder: (_, __) => Container(width: setWidth(20)),
+              itemCount: content.data.itemList.length,
+            ),
+          ),
+        ),
+        divider,
+      ],
+    );
   }
 }
 
@@ -132,6 +203,7 @@ class TextCardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: setHeight(25),
+        horizontal: setWidth(20),
       ),
       alignment: (getType() == 'header1' || getType() == 'header2')
           ? Alignment.center
@@ -153,12 +225,14 @@ class TextCardWidget extends StatelessWidget {
         color: Colors.black87,
         fontFamily: FontType.lobster,
         fontSize: setSp(32),
+        letterSpacing: 3,
       );
     } else if (getType() == 'header2') {
       return TextStyle(
         color: Colors.black87,
         fontFamily: FontType.bold,
         fontSize: setSp(32),
+        letterSpacing: 3,
       );
     } else {
       return TextStyle(
@@ -226,7 +300,6 @@ class FollowItemWidget extends StatelessWidget {
           ),
           ItemHeaderWidget(
             header: contentInfo.header,
-            isHeader: true,
           ),
         ],
       ),

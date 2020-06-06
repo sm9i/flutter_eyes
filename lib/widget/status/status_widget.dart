@@ -15,12 +15,14 @@ class StatusErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       child: Throttle(
         onTap: () {
           if (onTap != null) {
             onTap();
           }
         },
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 
 class Glide {
@@ -23,7 +24,12 @@ class Glide {
     double height,
     BoxFit fit,
   }) {
-    return Image.network(url, width: width, height: height, fit: fit);
+    return ExtendedImage.network(
+      url,
+      width: width,
+      height: height,
+      fit: fit,
+    );
   }
 
   static String assetsIconPath(String name) {
